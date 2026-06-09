@@ -84,7 +84,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     display: block;
   }
 
-  // ---- White blob (左側テキスト) ----
+  // ---- Vector bg (左側テキスト) ----
   &__blob {
     position: absolute;
     z-index: 4;
@@ -93,8 +93,10 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     transform: translateY(-50%);
     width: 30%;
     aspect-ratio: 1 / 1.05;
-    background-color: $color-white;
-    border-radius: 50% 55% 60% 50% / 55% 50% 60% 55%;
+    background-image: url('/images/Vector.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,7 +108,6 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
       top: auto;
       bottom: 30px;
       transform: translateX(-50%);
-      border-radius: 50%;
       padding: 16px;
     }
   }

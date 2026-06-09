@@ -14,7 +14,7 @@ const isTopPage = computed(() => route.path === '/')
 
 <style>
 .layout--top {
-  background-image: url('/images/bg.webp');
+  background-image: url('/images/bg.svg');
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -23,7 +23,7 @@ const isTopPage = computed(() => route.path === '/')
 
 @media screen and (max-width: 767px) {
   .layout--top {
-    background-image: url('/images/sp-bg.webp');
+    background-image: url('/images/sp-bg.svg');
   }
 }
 </style>

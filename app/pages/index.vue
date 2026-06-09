@@ -10,6 +10,6 @@
 
 <style scoped>
 .top {
-  background: url('/images/bg.webp') top center / cover no-repeat;
+  background: url('/images/bg.svg') top center / cover no-repeat;
 }
 </style>

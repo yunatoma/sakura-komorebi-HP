@@ -15,7 +15,7 @@
         </template>
 
         <NuxtLink to="/" class="header__logo">
-          <img src="/images/logo.svg" alt="桜のこもれびキッズランド" class="header__logo-img" width="110" height="110" />
+          <img src="/images/logo.svg" alt="桜のこもれびキッズランド" class="header__logo-img" width="280" height="280" />
         </NuxtLink>
 
         <template v-for="item in rightNavItems" :key="item.path">
@@ -36,9 +36,12 @@
           <img src="/images/logo.svg" alt="桜のこもれびキッズランド" width="70" height="70" />
         </NuxtLink>
         <button class="header__sp-toggle" :aria-expanded="menuOpen" aria-label="メニューを開く" @click="menuOpen = !menuOpen">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span class="header__sp-toggle-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="header__sp-toggle-label">menu</span>
         </button>
       </div>
 
@@ -63,19 +66,19 @@ const leftNavItems = [
     label: 'わたしたちのこと',
     en: 'About',
     path: '/about',
-    icon: '/images/Mask group.svg',
+    icon: '/images/Mask group-3.svg',
   },
   {
     label: '各園のご紹介',
     en: 'Introduction',
     path: '/introduction',
-    icon: '/images/Mask group-1.svg',
+    icon: '/images/Mask group-5.svg',
   },
   {
     label: 'こもれびだより',
     en: 'Letter',
     path: '/letter',
-    icon: '/images/新聞のフリーアイコン 1.svg',
+    icon: '/images/Mask group-6.svg',
   },
 ]
 
@@ -84,19 +87,19 @@ const rightNavItems = [
     label: 'お知らせ',
     en: 'Info',
     path: '/info',
-    icon: '/images/Mask group-2.svg',
+    icon: '/images/Mask group-7.svg',
   },
   {
     label: '採用情報',
     en: 'Recruit',
     path: '/recruit',
-    icon: '/images/Mask group-3.svg',
+    icon: '/images/Mask group-8.svg',
   },
   {
     label: 'お問い合わせ',
     en: 'Contact',
     path: '/contact',
-    icon: '/images/Mask group-4.svg',
+    icon: '/images/Mask group-9.svg',
   },
 ]
 </script>
@@ -106,25 +109,41 @@ const rightNavItems = [
 @use '~/assets/styles/mixin' as *;
 
 .header {
-  background-image: url('/images/header.webp');
-  background-size: 100% 100%;
+  position: relative;
+  z-index: 10;
+  background-image: url('/images/header.svg');
+  background-size: 100% auto;
   background-repeat: no-repeat;
+  background-position: top center;
+  width: 100%;
+  height: calc(100vw * 254 / 1440);
 
   @include sp {
-    background-image: url('/images/sp-header.webp');
-    background-size: 100% 100%;
+    background-image: url('/images/sp-header.svg');
+    background-size: 100% auto;
+    background-position: top center;
   }
 
   &__inner {
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   // ---- PC nav ----
   &__nav {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 160px);
+    max-width: 1280px;
+    height: 120px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 36px 16px 52px;
+    justify-content: space-between;
 
     @include sp {
       display: none;
@@ -212,8 +231,8 @@ const rightNavItems = [
   }
 
   &__logo-img {
-    width: 110px;
-    height: 110px;
+    width: 280px;
+    height: auto;
     object-fit: contain;
     display: block;
   }
@@ -237,16 +256,38 @@ const rightNavItems = [
   &__sp-toggle {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid $color-dark-red;
+    background: transparent;
+    padding: 0;
+  }
+
+  &__sp-toggle-lines {
+    display: flex;
+    flex-direction: column;
     gap: 5px;
-    padding: 8px;
 
     span {
       display: block;
-      width: 24px;
+      width: 32px;
       height: 2px;
       background-color: $color-dark-red;
       border-radius: 2px;
     }
+  }
+
+  &__sp-toggle-label {
+    font-family: $font-jost;
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-dark-red;
+    line-height: 1;
+    letter-spacing: 0.05em;
   }
 
   &__sp-menu {

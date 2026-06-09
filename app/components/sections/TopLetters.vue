@@ -114,7 +114,7 @@ const posts = [
 .letters {
   position: relative;
   padding: 64px 60px 80px;
-  background: url('/images/top-letters__bg.webp') top center / cover no-repeat;
+  background: url('/images/top-letters__bg.svg') top center / cover no-repeat;
 
   @include sp {
     padding: 56px 24px 64px;
