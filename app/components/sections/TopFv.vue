@@ -17,19 +17,15 @@
           <span class="fv__title-line">未来を彩る</span>
         </h1>
       </div>
+
+      <!-- お知らせ (FVエリア内・右下) -->
+      <div class="fv__news" :class="{ 'is-visible': isVisible }">
+        <p class="fv__news-heading">お知らせ</p>
+        <p class="fv__news-body">タイトルが入ります。タイトルが入ります。</p>
+        <p class="fv__news-date">2024ねん4がつ1にち</p>
+      </div>
     </div>
   </section>
-
-  <!-- Fixed お知らせ (FV表示中のみ表示) -->
-  <ClientOnly>
-    <Transition name="slide-fade">
-      <div v-if="isFvVisible" class="fv-news">
-        <p class="fv-news__heading">お知らせ</p>
-        <p class="fv-news__body">タイトルが入ります。タイトルが入ります。</p>
-        <p class="fv-news__date">2024ねん4がつ1にち</p>
-      </div>
-    </Transition>
-  </ClientOnly>
 </template>
 
 <script setup lang="ts">
@@ -37,26 +33,6 @@ import { useScrollAnimation } from '~/composables/useScrollAnimation'
 
 const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
-const isFvVisible = ref(true)
-let fvObserver: IntersectionObserver | null = null
-
-onMounted(() => {
-  const el = fvRef.value
-  if (!el) return
-
-  fvObserver = new IntersectionObserver(
-    ([entry]) => {
-      isFvVisible.value = entry.isIntersecting
-    },
-    { threshold: 0 }
-  )
-  fvObserver.observe(el)
-})
-
-onUnmounted(() => {
-  fvObserver?.disconnect()
-  fvObserver = null
-})
 </script>
 
 <style scoped lang="scss">
@@ -159,59 +135,54 @@ onUnmounted(() => {
     &:nth-child(1) { animation-delay: 0.2s; }
     &:nth-child(2) { animation-delay: 0.5s; }
   }
-}
 
-// ---- Fixed お知らせ ----
-.fv-news {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 200;
-  width: 220px;
-  background-color: $color-yellow-light;
-  border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  // ---- お知らせ (FVエリア内・右下) ----
+  &__news {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 4;
+    width: 200px;
+    background-color: $color-yellow-light;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    opacity: 0;
 
-  @include sp {
-    width: 160px;
-    bottom: 16px;
-    right: 16px;
-    padding: 10px 12px;
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.8s both;
+    }
+
+    @include sp {
+      width: 150px;
+      bottom: 12px;
+      right: 12px;
+      padding: 10px 12px;
+    }
   }
 
-  &__heading {
+  &__news-heading {
     font-family: $font-yusei;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     color: $color-dark-red;
     margin-bottom: 6px;
   }
 
-  &__body {
+  &__news-body {
     font-family: $font-kosugi;
-    font-size: 12px;
+    font-size: 11px;
     color: $color-text;
     line-height: 1.6;
     margin-bottom: 6px;
   }
 
-  &__date {
+  &__news-date {
     font-family: $font-jost;
-    font-size: 11px;
+    font-size: 10px;
     color: $color-text;
     text-align: right;
   }
 }
 
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translateY(12px);
-}
 </style>
