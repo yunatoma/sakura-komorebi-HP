@@ -1,0 +1,53 @@
+# 環境変数・シークレット
+.env
+.env.*
+.env.local
+.env.*.local
+
+# 秘密鍵・証明書
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+*.csr
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_ecdsa
+id_ecdsa.*
+*.ppk
+
+# 認証情報・トークン
+.netrc
+.npmrc
+.pypirc
+.htpasswd
+credentials
+credentials.json
+token.json
+secrets.json
+service-account*.json
+
+# クラウド認証情報
+.aws/credentials
+.aws/config
+.gcloud/
+.azure/
+
+# パスワードマネージャー・キーストア
+*.keystore
+*.jks
+*.kdbx
+
+# SSH設定
+.ssh/
+
+# Git履歴（大量のコミット情報を含む場合）
+# .git/
+
+# ログ（機密情報が含まれる可能性）
+*.log
+logs/
