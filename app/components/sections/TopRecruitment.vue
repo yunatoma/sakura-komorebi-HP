@@ -3,21 +3,21 @@
     <div class="recruitment__inner">
       <div class="recruitment__card" :class="{ 'is-visible': isVisible }">
         <!-- Logo -->
-        <div class="recruitment__logo">
+        <div class="recruitment__logo" :class="{ 'is-visible': isVisible }">
           <div class="recruitment__logo-circle">
             <img src="/images/Mask group-8.svg" alt="" class="recruitment__logo-img" />
           </div>
         </div>
 
         <!-- Heading -->
-        <h2 class="recruitment__heading">採用情報</h2>
-        <p class="recruitment__en">Introduction</p>
+        <h2 class="recruitment__heading" :class="{ 'is-visible': isVisible }">採用情報</h2>
+        <p class="recruitment__en" :class="{ 'is-visible': isVisible }">Introduction</p>
 
         <!-- Body -->
-        <p class="recruitment__body">桜のこもれびキッズランドで働いてみませんか？</p>
+        <p class="recruitment__body" :class="{ 'is-visible': isVisible }">桜のこもれびキッズランドで働いてみませんか？</p>
 
         <!-- Buttons -->
-        <div class="recruitment__buttons">
+        <div class="recruitment__buttons" :class="{ 'is-visible': isVisible }">
           <a href="#" class="recruitment__btn recruitment__btn--outline">
             採用情報
             <span class="recruitment__btn-arrow">›</span>
@@ -86,11 +86,6 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     text-align: center;
     width: 100%;
     max-width: 680px;
-    opacity: 0;
-
-    &.is-visible {
-      animation: fadeInUp 0.7s ease 0.2s both;
-    }
 
     @include sp {
       padding: 40px 32px 48px;
@@ -101,6 +96,11 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
   // ---- Logo ----
   &__logo {
     margin-bottom: 16px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
   }
 
   &__logo-circle {
@@ -138,6 +138,11 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     text-align: center;
     color: $color-dark-red;
     margin-bottom: 8px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.3s both;
+    }
   }
 
   // ---- English label ----
@@ -150,6 +155,11 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     text-align: center;
     color: $color-dark-red;
     margin-bottom: 32px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.45s both;
+    }
   }
 
   // ---- Body ----
@@ -162,6 +172,11 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     text-align: center;
     color: #55000C;
     margin-bottom: 40px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.6s both;
+    }
 
     @include sp {
       font-size: 15px;
@@ -175,6 +190,11 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.75s both;
+    }
 
     @include sp {
       gap: 16px;

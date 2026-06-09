@@ -1,37 +1,60 @@
 <template>
-  <button
-    v-show="isVisible"
-    class="page-top"
-    aria-label="ページトップへ戻る"
-    @click="scrollToTop"
-  >
-    <img src="/images/chevron-right-solid 3.svg" class="page-top__icon" alt="" aria-hidden="true" />
-  </button>
+  <Transition name="fade">
+    <button
+      v-show="isVisible"
+      class="page-top"
+      aria-label="ページトップへ戻る"
+      @click="scrollToTop"
+    >
+      <img src="/images/chevron-right-solid 3.svg" class="page-top__icon" alt="" aria-hidden="true" />
+    </button>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 const isVisible = ref(false)
-
-function onScroll() {
-  isVisible.value = window.scrollY > 300
-}
+let observer: IntersectionObserver | null = null
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', onScroll, { passive: true })
+  const fv = document.querySelector('.fv')
+
+  if (fv) {
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible.value = !entry.isIntersecting
+      },
+      { threshold: 0 }
+    )
+    observer.observe(fv)
+  } else {
+    const onScroll = () => { isVisible.value = window.scrollY > 300 }
+    window.addEventListener('scroll', onScroll, { passive: true })
+  }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
+  observer?.disconnect()
+  observer = null
 })
 </script>
 
 <style scoped lang="scss">
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 .page-top {
   position: fixed;
@@ -63,7 +86,6 @@ onUnmounted(() => {
     width: 24px;
     height: 24px;
     display: block;
-    transform: rotate(0deg);
   }
 }
 </style>

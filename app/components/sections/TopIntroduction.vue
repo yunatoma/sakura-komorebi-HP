@@ -188,10 +188,11 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     text-align: center;
     color: $color-text;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
 
     &:hover {
-      background-color: #FFFFFF;
+      border-color: $color-text;
     }
 
     @include sp {

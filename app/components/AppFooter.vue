@@ -3,7 +3,7 @@
     <div class="footer__inner">
       <!-- ロゴ -->
       <NuxtLink to="/" class="footer__logo">
-        <img src="/images/logo.svg" alt="桜のこもれびキッズランド" width="160" height="160" />
+        <img src="/images/logo.svg" alt="桜のこもれびキッズランド" width="240" height="71" />
       </NuxtLink>
 
       <!-- メインナビ -->
@@ -79,8 +79,9 @@ const subNavItems = [
     }
 
     img {
-      width: 160px;
-      height: 160px;
+      max-width: 240px;
+      width: 100%;
+      height: 70.86px;
       object-fit: contain;
       display: block;
     }
