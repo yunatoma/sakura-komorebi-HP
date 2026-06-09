@@ -212,8 +212,11 @@ const posts = [
   // ---- Letter label ----
   &__en {
     font-family: $font-jost;
-    font-size: 13px;
+    font-weight: 900;
+    font-size: 10px;
+    line-height: 1;
     letter-spacing: 0.2em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 48px;
     opacity: 0;

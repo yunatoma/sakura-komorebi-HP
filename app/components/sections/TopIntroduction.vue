@@ -91,9 +91,8 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     justify-content: center;
     width: 96px;
     height: 96px;
-    background-color: #F5E650;
+    background-color: #FFF7B8;
     border-radius: 50%;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
     @include sp {
       width: 80px;
@@ -127,8 +126,11 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
   // ---- Introduction label ----
   &__en {
     font-family: $font-jost;
-    font-size: 13px;
+    font-weight: 900;
+    font-size: 10px;
+    line-height: 1;
     letter-spacing: 0.2em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 48px;
     opacity: 0;

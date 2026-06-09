@@ -149,12 +149,12 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     bottom: -30px;
     right: -40px;
     z-index: 4;
-    max-width: 240px;
-    width: 240px;
-    max-height: 120px;
+    max-width: 280px;
+    width: 280px;
+    max-height: 150px;
     background-color: $color-yellow-light;
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 18px 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     opacity: 0;
 
@@ -172,7 +172,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
   &__news-heading {
     font-family: $font-yusei;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     color: $color-dark-red;
     margin-bottom: 6px;
@@ -180,7 +180,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
   &__news-body {
     font-family: $font-kosugi;
-    font-size: 11px;
+    font-size: 13px;
     color: $color-text;
     line-height: 1.6;
     margin-bottom: 6px;
@@ -188,7 +188,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
   &__news-date {
     font-family: $font-jost;
-    font-size: 10px;
+    font-size: 12px;
     color: $color-text;
     text-align: right;
   }

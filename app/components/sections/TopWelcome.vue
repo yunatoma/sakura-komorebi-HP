@@ -4,21 +4,7 @@
       <!-- Logo -->
       <div class="welcome__logo" :class="{ 'is-visible': isVisible }">
         <div class="welcome__logo-circle">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="welcome__logo-svg">
-            <!-- Trunk -->
-            <rect x="37" y="52" width="6" height="16" rx="3" fill="#8B5E3C" />
-            <!-- Crown -->
-            <ellipse cx="40" cy="38" rx="18" ry="16" fill="#F4A7B5" />
-            <ellipse cx="28" cy="44" rx="12" ry="10" fill="#F4A7B5" />
-            <ellipse cx="52" cy="44" rx="12" ry="10" fill="#F4A7B5" />
-            <!-- Sakura petals on tree -->
-            <circle cx="33" cy="34" r="3" fill="#E8607A" opacity="0.7" />
-            <circle cx="42" cy="30" r="3" fill="#E8607A" opacity="0.7" />
-            <circle cx="50" cy="36" r="3" fill="#E8607A" opacity="0.7" />
-            <circle cx="38" cy="42" r="2.5" fill="#E8607A" opacity="0.7" />
-            <circle cx="46" cy="44" r="2.5" fill="#E8607A" opacity="0.7" />
-            <circle cx="27" cy="44" r="2.5" fill="#E8607A" opacity="0.7" />
-          </svg>
+          <img src="/images/sakura.svg" class="welcome__logo-svg" alt="桜のロゴ" />
         </div>
       </div>
 
@@ -108,9 +94,8 @@ const { elementRef: welcomeRef, isVisible } = useScrollAnimation(0.1)
     justify-content: center;
     width: 96px;
     height: 96px;
-    background-color: #F5E650;
+    background-color: #FFF7B8;
     border-radius: 50%;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
     @include sp {
       width: 80px;
@@ -130,10 +115,13 @@ const { elementRef: welcomeRef, isVisible } = useScrollAnimation(0.1)
 
   // ---- Heading ----
   &__heading {
-    font-family: $font-yusei;
-    font-size: clamp(20px, 3vw, 32px);
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 24px;
     color: $color-dark-red;
-    line-height: 1.8;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-align: center;
     margin-bottom: 8px;
     opacity: 0;
 
@@ -153,8 +141,11 @@ const { elementRef: welcomeRef, isVisible } = useScrollAnimation(0.1)
   // ---- Welcome label ----
   &__en {
     font-family: $font-jost;
-    font-size: 13px;
+    font-weight: 900;
+    font-size: 10px;
+    line-height: 1;
     letter-spacing: 0.2em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 48px;
     opacity: 0;
@@ -179,9 +170,11 @@ const { elementRef: welcomeRef, isVisible } = useScrollAnimation(0.1)
 
   &__paragraph {
     font-family: $font-kosugi;
-    font-size: clamp(13px, 1.4vw, 16px);
+    font-weight: 400;
+    font-size: 18px;
     color: $color-text;
-    line-height: 2.2;
+    line-height: 2;
+    letter-spacing: 0.2em;
     text-align: center;
 
     & + & {
@@ -189,9 +182,8 @@ const { elementRef: welcomeRef, isVisible } = useScrollAnimation(0.1)
     }
 
     @include sp {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 2;
-      text-align: left;
     }
   }
 }
