@@ -10,15 +10,9 @@
         />
       </div>
       <div class="single-location__content" :class="{ 'is-visible': isVisible }">
-        <p class="single-location__label">Access</p>
-        <h2 class="single-location__heading">
-          渋谷駅から徒歩2分<br />
-          利便性の高い立地
-        </h2>
+        <h2 class="single-location__heading">渋谷駅から徒歩2分　利便性の高い立地</h2>
         <p class="single-location__text">
-          当園は渋谷駅から徒歩わずか2分の好立地にあります。
-          送り迎えもスムーズで、忙しい保護者の方にも安心してご利用いただける環境です。
-          周辺には公園や自然環境も整っており、子どもたちの日々の活動を豊かにしています。
+          桜のこもれびキッズランドしぶや園は、渋谷駅から徒歩2分という利便性の高い立地に位置しています。<br />都心でありながらも自然と調和した環境で、子どもたちが安心して過ごせる場所を提供しています。<br />渋谷の中心にあるため、お子さまの送り迎えもスムーズで、忙しい保護者の方々にも大変便利です。<br />地域の皆様に愛され、信頼される保育園として、心を込めてお子さまをお預かりしています。
         </p>
       </div>
     </div>
@@ -35,25 +29,14 @@ const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
 
-@keyframes fadeInLeft {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateX(-24px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -68,79 +51,67 @@ const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
     max-width: 1160px;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 60px;
-
-    @include sp {
-      flex-direction: column;
-      gap: 32px;
-    }
+    gap: 40px;
   }
 
   &__image-wrap {
-    flex: 1 1 50%;
+    width: 100%;
+    max-width: 740px;
     border-radius: 20px;
     overflow: hidden;
     opacity: 0;
 
     &.is-visible {
-      animation: fadeInLeft 0.7s ease 0.1s both;
-    }
-
-    @include sp {
-      width: 100%;
+      animation: fadeInUp 0.7s ease 0.1s both;
     }
   }
 
   &__image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
   }
 
   &__content {
-    flex: 1 1 50%;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
     opacity: 0;
 
     &.is-visible {
-      animation: fadeInRight 0.7s ease 0.25s both;
+      animation: fadeInUp 0.7s ease 0.3s both;
     }
   }
 
-  &__label {
-    font-family: $font-jost;
-    font-weight: 900;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: $color-dark-red;
-    margin-bottom: 12px;
-  }
-
   &__heading {
-    font-family: $font-yusei;
+    font-family: $font-kosugi;
     font-weight: 400;
-    font-size: 28px;
-    line-height: 1.7;
-    letter-spacing: 0.1em;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0.2em;
     color: $color-text;
+    text-align: center;
     margin-bottom: 24px;
 
     @include sp {
-      font-size: 22px;
+      font-size: 17px;
     }
   }
 
   &__text {
     font-family: $font-kosugi;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 2;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.2em;
     color: $color-text;
+    text-align: center;
 
     @include sp {
       font-size: 14px;
+      letter-spacing: 0.1em;
     }
   }
 }

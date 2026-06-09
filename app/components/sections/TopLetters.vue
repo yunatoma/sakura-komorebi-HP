@@ -19,7 +19,7 @@
       <!-- Cards grid -->
       <ul class="letters__grid" :class="{ 'is-visible': isVisible }">
         <li v-for="post in posts" :key="post.id" class="letters__item">
-          <NuxtLink to="/letter" class="letters__card">
+          <NuxtLink :to="`/letter/${post.id}`" class="letters__card">
             <div class="letters__card-image">
               <img :src="post.image" :alt="post.title" />
             </div>
@@ -34,7 +34,7 @@
 
       <!-- CTA -->
       <div class="letters__cta" :class="{ 'is-visible': isVisible }">
-        <NuxtLink to="/letter" class="letters__btn">
+        <NuxtLink to="/letter-list" class="letters__btn">
           もっと見る
           <span class="letters__btn-arrow">›</span>
         </NuxtLink>
@@ -48,52 +48,12 @@
 <script setup lang="ts">
 import { useScrollAnimation } from '~/composables/useScrollAnimation'
 
+const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 0 })
+
 const { elementRef: lettersRef, isVisible } = useScrollAnimation(0.1)
 
-const posts = [
-  {
-    id: 1,
-    image: '/images/erik-o990dFLgo1Q-unsplash.webp',
-    title: 'なは園からのおたより',
-    excerpt: '年長さんクラス、美ら海水族館に遠足に行きました！',
-    date: '2024ねん4がつ15にち',
-  },
-  {
-    id: 2,
-    image: '/images/massimo-adami-GYdtY0fR4CM-unsplash.webp',
-    title: 'ひろしま園からのおたより',
-    excerpt: '年少さん、ピクニックへ♪',
-    date: '2024ねん4がつ6にち',
-  },
-  {
-    id: 3,
-    image: '/images/erika-fletcher-YfNWGrQI3a4-unsplash.webp',
-    title: 'しんじゅく園からのおたより',
-    excerpt: '年少さんクラス、お絵描き会',
-    date: '2024ねん2がつ10にち',
-  },
-  {
-    id: 4,
-    image: '/images/jason-sung-xH04gkmk1sg-unsplash.webp',
-    title: 'しぶや園からのおたより',
-    excerpt: 'しぶや園の日常',
-    date: '2024ねん1がつ21にち',
-  },
-  {
-    id: 5,
-    image: '/images/jerry-wang-KV9F7Ypl2N0-unsplash.webp',
-    title: 'おおさか園からのおたより',
-    excerpt: 'ローマ字のお勉強',
-    date: '2023ねん12がつ10にち',
-  },
-  {
-    id: 6,
-    image: '/images/jerry-wang-Lxn5XUu_mZ8-unsplash.webp',
-    title: 'よこはま園からのおたより',
-    excerpt: '年長さんクラス、科学博物館に遠足！',
-    date: '2023ねん11がつ9にち',
-  },
-]
+const { allPosts } = useLetterPosts()
+const posts = computed(() => props.limit > 0 ? allPosts.slice(0, props.limit) : allPosts)
 </script>
 
 <style scoped lang="scss">
