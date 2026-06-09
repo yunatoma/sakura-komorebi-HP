@@ -3,6 +3,7 @@
     <SectionsTopFv />
     <SectionsTopWelcome />
     <SectionsTopIntroduction />
+    <SectionsTopLetters />
   </main>
 </template>
 
