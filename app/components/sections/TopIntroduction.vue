@@ -112,8 +112,12 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
 
   // ---- Heading ----
   &__heading {
-    font-family: $font-yusei;
-    font-size: clamp(22px, 3vw, 34px);
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 8px;
     opacity: 0;
@@ -174,22 +178,25 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     align-items: center;
     justify-content: center;
     padding: 20px 16px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #FFFFFF;
     border-radius: 12px;
-    font-family: $font-yusei;
-    font-size: clamp(15px, 1.6vw, 20px);
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-text;
     text-decoration: none;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      background-color: #FFFFFF;
     }
 
     @include sp {
       padding: 16px 12px;
-      font-size: 15px;
+      font-size: 18px;
     }
   }
 
@@ -209,8 +216,12 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     padding: 14px 40px;
     border: 2px solid $color-dark-red;
     border-radius: 999px;
-    font-family: $font-yusei;
-    font-size: 16px;
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-dark-red;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -221,7 +232,7 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     }
 
     @include sp {
-      font-size: 15px;
+      font-size: 16px;
       padding: 12px 32px;
     }
   }

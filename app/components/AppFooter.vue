@@ -29,11 +29,6 @@
         <small>©桜のこもれびキッズランド All Rights Reserved.</small>
       </p>
     </div>
-
-    <!-- ページトップボタン -->
-    <button class="footer__page-top" aria-label="ページトップへ戻る" @click="scrollToTop">
-      <span class="footer__page-top-icon" aria-hidden="true">&#8963;</span>
-    </button>
   </footer>
 </template>
 
@@ -52,9 +47,6 @@ const subNavItems = [
   { label: 'プライバシーポリシー', path: '/privacy' },
 ]
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
 </script>
 
 <style scoped lang="scss">
@@ -154,39 +146,5 @@ function scrollToTop() {
     }
   }
 
-  // ---- ページトップボタン ----
-  &__page-top {
-    position: absolute;
-    bottom: 28px;
-    right: 40px;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background-color: $color-white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    @include sp {
-      right: 20px;
-      bottom: 20px;
-      width: 44px;
-      height: 44px;
-    }
-  }
-
-  &__page-top-icon {
-    font-size: 24px;
-    color: $color-dark-red;
-    line-height: 1;
-    display: block;
-    margin-top: -4px;
-  }
 }
 </style>

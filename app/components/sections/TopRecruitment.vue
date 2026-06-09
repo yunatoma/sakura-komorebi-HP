@@ -130,8 +130,12 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
 
   // ---- Heading ----
   &__heading {
-    font-family: $font-yusei;
-    font-size: clamp(24px, 3vw, 36px);
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 8px;
   }
@@ -151,12 +155,16 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
   // ---- Body ----
   &__body {
     font-family: $font-kosugi;
-    font-size: clamp(14px, 1.6vw, 18px);
-    color: $color-text;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 2;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: #55000C;
     margin-bottom: 40px;
 
     @include sp {
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 32px;
     }
   }
@@ -179,13 +187,17 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     gap: 10px;
     padding: 14px 40px;
     border-radius: 999px;
-    font-family: $font-yusei;
-    font-size: 16px;
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-align: center;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
 
     @include sp {
-      font-size: 15px;
+      font-size: 16px;
       padding: 12px 32px;
     }
 

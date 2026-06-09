@@ -4,6 +4,7 @@
     <AppHeader />
     <NuxtPage />
     <AppFooter />
+    <PageTopButton />
   </div>
 </template>
 

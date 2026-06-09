@@ -100,6 +100,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,9 +172,12 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
   }
 
   &__news-heading {
-    font-family: $font-yusei;
-    font-size: 16px;
-    font-weight: bold;
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    vertical-align: bottom;
     color: $color-dark-red;
     margin-bottom: 6px;
   }

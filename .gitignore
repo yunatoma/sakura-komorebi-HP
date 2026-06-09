@@ -18,6 +18,11 @@ logs
 .fleet
 .idea
 
+# Design assets / docs
+指示書.md
+top_pc.png
+image.png
+
 # Local env files
 .env
 .env.*

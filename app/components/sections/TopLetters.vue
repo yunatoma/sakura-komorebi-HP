@@ -198,8 +198,12 @@ const posts = [
 
   // ---- Heading ----
   &__heading {
-    font-family: $font-yusei;
-    font-size: clamp(22px, 3vw, 34px);
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-dark-red;
     margin-bottom: 8px;
     opacity: 0;
@@ -258,10 +262,9 @@ const posts = [
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: transform 0.2s ease;
 
     &:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       transform: translateY(-2px);
     }
   }
@@ -285,8 +288,11 @@ const posts = [
   }
 
   &__card-title {
-    font-family: $font-yusei;
-    font-size: 15px;
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
     color: $color-text;
     margin-bottom: 8px;
   }
@@ -322,8 +328,12 @@ const posts = [
     padding: 14px 40px;
     border: 2px solid $color-dark-red;
     border-radius: 999px;
-    font-family: $font-yusei;
-    font-size: 16px;
+    font-family: $font-kosugi;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-align: center;
     color: $color-dark-red;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -334,7 +344,7 @@ const posts = [
     }
 
     @include sp {
-      font-size: 15px;
+      font-size: 16px;
       padding: 12px 32px;
     }
   }
