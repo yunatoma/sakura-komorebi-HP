@@ -2,6 +2,7 @@
   <main class="top">
     <SectionsTopFv />
     <SectionsTopWelcome />
+    <SectionsTopIntroduction />
   </main>
 </template>
 
