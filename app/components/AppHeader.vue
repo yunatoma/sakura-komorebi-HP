@@ -3,31 +3,33 @@
     <div class="header__inner">
       <!-- PC nav -->
       <nav class="header__nav">
-        <span class="header__sep" aria-hidden="true"></span>
-
-        <template v-for="item in leftNavItems" :key="item.path">
-          <NuxtLink :to="item.path" class="header__nav-item">
-            <img :src="item.icon" :alt="item.label" class="header__nav-icon" width="50" height="50" />
-            <span class="header__nav-label">{{ item.label }}</span>
-            <span class="header__nav-en">{{ item.en }}</span>
-          </NuxtLink>
+        <div class="header__nav-left">
           <span class="header__sep" aria-hidden="true"></span>
-        </template>
+          <template v-for="item in leftNavItems" :key="item.path">
+            <NuxtLink :to="item.path" class="header__nav-item">
+              <img :src="item.icon" :alt="item.label" class="header__nav-icon" width="50" height="50" />
+              <span class="header__nav-label">{{ item.label }}</span>
+              <span class="header__nav-en">{{ item.en }}</span>
+            </NuxtLink>
+            <span class="header__sep" aria-hidden="true"></span>
+          </template>
+        </div>
 
         <NuxtLink to="/" class="header__logo">
           <img src="/images/logo.svg" alt="桜のこもれびキッズランド" class="header__logo-img" width="280" height="280" />
         </NuxtLink>
 
-        <template v-for="item in rightNavItems" :key="item.path">
-          <span class="header__sep" aria-hidden="true"></span>
-          <NuxtLink :to="item.path" class="header__nav-item">
-            <img :src="item.icon" :alt="item.label" class="header__nav-icon" width="50" height="50" />
-            <span class="header__nav-label">{{ item.label }}</span>
-            <span class="header__nav-en">{{ item.en }}</span>
-          </NuxtLink>
-        </template>
-
-        <span class="header__sep" aria-hidden="true"></span>
+        <div class="header__nav-right">
+          <span class="header__sep header__sep--logo-adj" aria-hidden="true"></span>
+          <template v-for="item in rightNavItems" :key="item.path">
+            <NuxtLink :to="item.path" class="header__nav-item">
+              <img :src="item.icon" :alt="item.label" class="header__nav-icon" width="50" height="50" />
+              <span class="header__nav-label">{{ item.label }}</span>
+              <span class="header__nav-en">{{ item.en }}</span>
+            </NuxtLink>
+            <span class="header__sep" aria-hidden="true"></span>
+          </template>
+        </div>
       </nav>
 
       <!-- SP nav -->
@@ -35,7 +37,12 @@
         <NuxtLink to="/" class="header__sp-logo">
           <img src="/images/logo.svg" alt="桜のこもれびキッズランド" width="70" height="70" />
         </NuxtLink>
-        <button class="header__sp-toggle" :aria-expanded="menuOpen" aria-label="メニューを開く" @click="menuOpen = !menuOpen">
+        <button
+          class="header__sp-toggle"
+          :aria-expanded="menuOpen"
+          aria-label="メニューを開く"
+          @click="menuOpen = true"
+        >
           <span class="header__sp-toggle-lines">
             <span></span>
             <span></span>
@@ -46,13 +53,26 @@
       </div>
 
       <div v-if="menuOpen" class="header__sp-menu">
-        <ul>
-          <li v-for="item in [...leftNavItems, ...rightNavItems]" :key="item.path">
-            <NuxtLink :to="item.path" class="header__sp-menu-link" @click="menuOpen = false">
-              {{ item.label }}
-            </NuxtLink>
-          </li>
-        </ul>
+        <button class="header__sp-menu-close" aria-label="メニューを閉じる" @click="menuOpen = false">
+          <svg class="header__sp-menu-close-icon" aria-hidden="true" viewBox="0 0 44 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="2" y1="28" x2="42" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="42" y1="28" x2="2" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="header__sp-menu-close-label">closed</span>
+        </button>
+        <div class="header__sp-menu-grid">
+          <NuxtLink
+            v-for="item in [...leftNavItems, ...rightNavItems]"
+            :key="item.path"
+            :to="item.path"
+            class="header__sp-menu-item"
+            @click="menuOpen = false"
+          >
+            <img :src="item.icon" :alt="item.label" class="header__sp-menu-icon" width="60" height="60" />
+            <span class="header__sp-menu-label">{{ item.label }}</span>
+            <span class="header__sp-menu-en">{{ item.en }}</span>
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </header>
@@ -60,6 +80,32 @@
 
 <script setup lang="ts">
 const menuOpen = ref(false)
+let scrollY = 0
+
+watch(menuOpen, (val) => {
+  if (!import.meta.client) return
+  if (val) {
+    scrollY = window.scrollY
+    document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.width = '100%'
+  } else {
+    document.body.style.overflow = ''
+    document.body.style.position = ''
+    document.body.style.top = ''
+    document.body.style.width = ''
+    window.scrollTo(0, scrollY)
+  }
+})
+
+onUnmounted(() => {
+  if (!import.meta.client) return
+  document.body.style.overflow = ''
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.width = ''
+})
 
 const leftNavItems = [
   {
@@ -110,7 +156,7 @@ const rightNavItems = [
 
 .header {
   position: relative;
-  z-index: 10;
+  z-index: 200;
   background-image: url('/images/header.svg');
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -122,6 +168,7 @@ const rightNavItems = [
     background-image: url('/images/sp-header.svg');
     background-size: 100% auto;
     background-position: top center;
+    height: calc(100vw * 158 / 375);
   }
 
   &__inner {
@@ -142,12 +189,29 @@ const rightNavItems = [
     max-width: 1280px;
     height: 120px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: stretch;
+    justify-content: center;
+
+    @media screen and (max-width: 1100px) {
+      width: calc(100% - 40px);
+      height: 100px;
+    }
+
+    @media screen and (max-width: 900px) {
+      height: 80px;
+    }
 
     @include sp {
       display: none;
     }
+  }
+
+  &__nav-left,
+  &__nav-right {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
   }
 
   &__sep {
@@ -194,6 +258,16 @@ const rightNavItems = [
     padding: 0 28px;
     transition: opacity 0.2s;
 
+    @media screen and (max-width: 1100px) {
+      padding: 0 16px;
+      gap: 4px;
+    }
+
+    @media screen and (max-width: 900px) {
+      padding: 0 10px;
+      gap: 3px;
+    }
+
     &:hover {
       opacity: 0.75;
     }
@@ -203,6 +277,16 @@ const rightNavItems = [
     width: 50px;
     height: 50px;
     object-fit: contain;
+
+    @media screen and (max-width: 1100px) {
+      width: 38px;
+      height: 38px;
+    }
+
+    @media screen and (max-width: 900px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &__nav-label {
@@ -210,6 +294,14 @@ const rightNavItems = [
     font-size: 13px;
     color: $color-dark-red;
     white-space: nowrap;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 11px;
+    }
+
+    @media screen and (max-width: 900px) {
+      font-size: 9px;
+    }
   }
 
   &__nav-en {
@@ -218,12 +310,31 @@ const rightNavItems = [
     font-weight: 600;
     color: $color-dark-red;
     letter-spacing: 0.08em;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 9px;
+    }
+
+    @media screen and (max-width: 900px) {
+      font-size: 8px;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  &__sep--logo-adj {
+    @media screen and (max-width: 1100px) {
+      visibility: hidden;
+    }
   }
 
   &__logo {
     flex-shrink: 0;
     padding: 0 8px;
     transition: opacity 0.2s;
+
+    @media screen and (max-width: 1100px) {
+      display: none;
+    }
 
     &:hover {
       opacity: 0.85;
@@ -240,31 +351,42 @@ const rightNavItems = [
   // ---- SP nav ----
   &__sp {
     display: none;
+    position: relative;
     align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
+    justify-content: center;
+    padding: 12px 20px;
 
     @include sp {
       display: flex;
     }
   }
 
-  &__sp-logo img {
+  &__sp-logo {
     display: block;
+
+    img {
+      display: block;
+      width: 230px;
+      height: auto;
+    }
   }
 
   &__sp-toggle {
+    position: absolute;
+    right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    width: 72px;
-    height: 72px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 2px solid $color-dark-red;
     background: transparent;
     padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
   }
 
   &__sp-toggle-lines {
@@ -281,6 +403,40 @@ const rightNavItems = [
     }
   }
 
+  &__sp-menu-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid $color-dark-red;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    color: $color-dark-red;
+  }
+
+  &__sp-menu-close-icon {
+    display: block;
+    width: 36px;
+    height: 26px;
+  }
+
+  &__sp-menu-close-label {
+    font-family: $font-jost;
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-dark-red;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
   &__sp-toggle-label {
     font-family: $font-jost;
     font-size: 13px;
@@ -291,27 +447,65 @@ const rightNavItems = [
   }
 
   &__sp-menu {
-    background-color: $color-pink-light;
-    padding: 16px 24px 24px;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(255, 248, 242, 0.92);
+    backdrop-filter: blur(6px);
+    overflow-y: auto;
+    padding: 108px 24px 40px;
 
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    @include sp {
+      padding-top: calc(100vw * 158 / 375 + 24px);
     }
   }
 
-  &__sp-menu-link {
-    display: block;
-    font-family: $font-yusei;
-    font-size: 15px;
-    color: $color-dark-red;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba($color-pink, 0.5);
+  &__sp-menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
 
-    &:last-child {
-      border-bottom: none;
+  &__sp-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 12px 20px;
+    border: 1.5px solid $color-dark-red;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: opacity 0.2s;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.75;
     }
+  }
+
+  &__sp-menu-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  &__sp-menu-label {
+    font-family: $font-yusei;
+    font-size: 14px;
+    color: $color-dark-red;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  &__sp-menu-en {
+    font-family: $font-jost;
+    font-size: 11px;
+    font-weight: 700;
+    color: $color-dark-red;
+    letter-spacing: 0.08em;
   }
 }
 </style>

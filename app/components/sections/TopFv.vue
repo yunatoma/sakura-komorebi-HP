@@ -53,9 +53,10 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 .fv {
   padding: 20px 60px 40px;
   margin-top: calc(-100vw * 80 / 1440);
+  overflow-x: clip;
 
   @include sp {
-    padding: 16px 20px 32px;
+    padding: 16px 20px 60px;
     margin-top: -40px;
   }
 
@@ -74,7 +75,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     width: 100%;
 
     @include sp {
-      height: 260px;
+      height: 460px;
       border-radius: 16px;
     }
   }
@@ -107,12 +108,11 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     padding: 48px 40px;
 
     @include sp {
-      width: 65%;
-      left: 50%;
-      top: auto;
-      bottom: 30px;
-      transform: translateX(-50%);
-      padding: 16px;
+      width: 52%;
+      left: 4%;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 20px 16px;
     }
   }
 
@@ -125,6 +125,14 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     letter-spacing: 0.1em;
     text-align: left;
     vertical-align: bottom;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 32px;
+    }
+
+    @media screen and (max-width: 900px) {
+      font-size: 24px;
+    }
 
     @include sp {
       font-size: 22px;
@@ -164,10 +172,13 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     }
 
     @include sp {
-      width: 180px;
-      bottom: -50px;
-      right: 12px;
-      padding: 10px 12px;
+      width: calc(100% - 32px);
+      max-width: 320px;
+      max-height: none;
+      bottom: -40px;
+      right: auto;
+      left: 0;
+      padding: 16px 18px;
     }
   }
 
