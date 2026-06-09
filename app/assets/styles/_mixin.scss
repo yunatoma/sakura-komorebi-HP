@@ -1,0 +1,13 @@
+@use 'variables' as *;
+
+@mixin sp {
+  @media screen and (max-width: #{$bp-sp}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media screen and (min-width: #{$bp-pc}) {
+    @content;
+  }
+}
