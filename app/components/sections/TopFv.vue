@@ -86,6 +86,10 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     object-fit: cover;
     object-position: center 20%;
     display: block;
+
+    @include sp {
+      object-position: 70% 20%;
+    }
   }
 
   // ---- Vector bg (左側テキスト) ----
@@ -108,11 +112,15 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     padding: 48px 40px;
 
     @include sp {
-      width: 52%;
-      left: 4%;
+      width: 58%;
+      left: 2%;
       top: 50%;
       transform: translateY(-50%);
-      padding: 20px 16px;
+      padding: 24px 20px;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 68%;
     }
   }
 

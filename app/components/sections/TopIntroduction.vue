@@ -1,22 +1,23 @@
 <template>
   <section class="introduction" ref="introRef">
-    <div class="introduction__inner">
-      <!-- Logo -->
+    <div class="introduction__border introduction__border--top"></div>
+
+    <!-- Icon straddling the top border -->
+    <div class="introduction__logo-wrap">
       <div class="introduction__logo" :class="{ 'is-visible': isVisible }">
         <div class="introduction__logo-circle">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="introduction__logo-svg">
-            <!-- Ground -->
             <ellipse cx="40" cy="62" rx="16" ry="5" fill="#55000C" />
-            <!-- Trunk -->
             <rect x="37" y="48" width="6" height="16" rx="3" fill="#55000C" />
-            <!-- Crown -->
             <ellipse cx="40" cy="34" rx="20" ry="18" fill="#55000C" />
             <ellipse cx="26" cy="44" rx="13" ry="11" fill="#55000C" />
             <ellipse cx="54" cy="44" rx="13" ry="11" fill="#55000C" />
           </svg>
         </div>
       </div>
+    </div>
 
+    <div class="introduction__inner">
       <!-- Heading -->
       <h2 class="introduction__heading" :class="{ 'is-visible': isVisible }">各園のご紹介</h2>
       <p class="introduction__en" :class="{ 'is-visible': isVisible }">Introduction</p>
@@ -36,6 +37,8 @@
         </a>
       </div>
     </div>
+
+    <div class="introduction__border introduction__border--bottom"></div>
   </section>
 </template>
 
@@ -63,10 +66,37 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
 }
 
 .introduction {
-  padding: 80px 60px 100px;
+  position: relative;
+  padding: 64px 60px 80px;
+  background: url('/images/top-letters__bg.svg') top center / cover no-repeat;
 
   @include sp {
-    padding: 60px 24px 80px;
+    padding: 56px 24px 64px;
+  }
+
+  // ---- Dotted borders ----
+  &__border {
+    width: 100%;
+    height: 2px;
+    background-image: repeating-linear-gradient(
+      to right,
+      $color-pink 0,
+      $color-pink 6px,
+      transparent 6px,
+      transparent 14px
+    );
+
+    &--top {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &--bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 
   &__inner {
@@ -75,9 +105,16 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
     text-align: center;
   }
 
-  // ---- Logo ----
+  // ---- Logo (straddling the top border) ----
+  &__logo-wrap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
   &__logo {
-    margin-bottom: 20px;
     opacity: 0;
 
     &.is-visible {
@@ -167,10 +204,6 @@ const prefectures = ['東京都', '神奈川県', '埼玉県', '千葉県', '大
       gap: 12px;
       margin-bottom: 36px;
     }
-  }
-
-  &__item {
-    // reset list style
   }
 
   &__link {

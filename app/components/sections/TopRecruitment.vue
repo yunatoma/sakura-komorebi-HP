@@ -224,7 +224,7 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     &--outline {
       border: 2px solid $color-dark-red;
       color: $color-dark-red;
-      background-color: transparent;
+      background-color: $color-pink-light;
 
       &:hover {
         background-color: $color-dark-red;
@@ -233,13 +233,12 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
     }
 
     &--yellow {
-      border: 2px solid $color-yellow-light;
+      border: 2px solid $color-dark-red;
       background-color: $color-yellow-light;
       color: $color-dark-red;
 
       &:hover {
         background-color: darken(#FFF7B8, 8%);
-        border-color: darken(#FFF7B8, 8%);
       }
     }
   }

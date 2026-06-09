@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" :class="{ 'layout--top': isTopPage }">
+  <div class="layout">
     <NuxtRouteAnnouncer />
     <AppHeader />
     <NuxtPage />
@@ -8,13 +8,8 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const route = useRoute()
-const isTopPage = computed(() => route.path === '/')
-</script>
-
 <style>
-.layout--top {
+.layout {
   background-image: url('/images/bg.svg');
   background-size: cover;
   background-position: top center;
@@ -23,7 +18,7 @@ const isTopPage = computed(() => route.path === '/')
 }
 
 @media screen and (max-width: 767px) {
-  .layout--top {
+  .layout {
     background-image: url('/images/sp-bg.svg');
   }
 }

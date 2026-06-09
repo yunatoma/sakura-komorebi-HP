@@ -19,7 +19,7 @@
       <!-- Cards grid -->
       <ul class="letters__grid" :class="{ 'is-visible': isVisible }">
         <li v-for="post in posts" :key="post.id" class="letters__item">
-          <a href="#" class="letters__card">
+          <NuxtLink to="/letter" class="letters__card">
             <div class="letters__card-image">
               <img :src="post.image" :alt="post.title" />
             </div>
@@ -28,16 +28,16 @@
               <p class="letters__card-excerpt">{{ post.excerpt }}</p>
               <p class="letters__card-date">{{ post.date }}</p>
             </div>
-          </a>
+          </NuxtLink>
         </li>
       </ul>
 
       <!-- CTA -->
       <div class="letters__cta" :class="{ 'is-visible': isVisible }">
-        <a href="#" class="letters__btn">
+        <NuxtLink to="/letter" class="letters__btn">
           もっと見る
           <span class="letters__btn-arrow">›</span>
-        </a>
+        </NuxtLink>
       </div>
     </div>
 
