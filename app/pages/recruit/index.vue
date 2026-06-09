@@ -22,6 +22,11 @@
         </div>
       </nav>
     </section>
+
+    <SectionsRecruitAbout />
+    <SectionsRecruitJobTable />
+    <SectionsRecruitFaq />
+    <SectionsRecruitForm />
   </main>
 </template>
 
