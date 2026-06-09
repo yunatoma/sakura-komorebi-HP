@@ -4,7 +4,7 @@
       <!-- Main photo (角丸、中央配置) -->
       <div class="fv__photo-wrap">
         <img
-          src="/images/ANJU16040317IMG_1087_TP_V 1.webp"
+          src="/images/ANJU16040317IMG_1087_TP_V1.webp"
           class="fv__photo"
           alt="子どもたちの笑顔"
         />
@@ -52,9 +52,11 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
 .fv {
   padding: 20px 60px 40px;
+  margin-top: calc(-100vw * 80 / 1440);
 
   @include sp {
     padding: 16px 20px 32px;
+    margin-top: -40px;
   }
 
   &__inner {
@@ -67,7 +69,8 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
   &__photo-wrap {
     border-radius: 24px;
     overflow: hidden;
-    height: 420px;
+    height: 540px;
+    max-height: 540px;
     width: 100%;
 
     @include sp {
@@ -91,7 +94,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     top: 50%;
     left: 3%;
     transform: translateY(-50%);
-    width: 30%;
+    width: 48%;
     aspect-ratio: 1 / 1.05;
     background-image: url('/images/Vector.webp');
     background-size: contain;
@@ -100,7 +103,7 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 28px 20px;
+    padding: 48px 40px;
 
     @include sp {
       width: 65%;
@@ -114,13 +117,16 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
 
   &__title {
     font-family: $font-yusei;
-    font-size: clamp(18px, 2vw, 32px);
+    font-weight: 400;
+    font-size: 40px;
     color: $color-dark-red;
-    line-height: 1.9;
+    line-height: 2;
+    letter-spacing: 0.1em;
     text-align: left;
+    vertical-align: bottom;
 
     @include sp {
-      font-size: 16px;
+      font-size: 22px;
       text-align: center;
     }
   }
@@ -137,13 +143,15 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     &:nth-child(2) { animation-delay: 0.5s; }
   }
 
-  // ---- お知らせ (FVエリア内・右下) ----
+  // ---- お知らせ (画像下端からはみ出し) ----
   &__news {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: -30px;
+    right: -40px;
     z-index: 4;
-    width: 200px;
+    max-width: 240px;
+    width: 240px;
+    max-height: 120px;
     background-color: $color-yellow-light;
     border-radius: 12px;
     padding: 14px 16px;
@@ -155,8 +163,8 @@ const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
     }
 
     @include sp {
-      width: 150px;
-      bottom: 12px;
+      width: 180px;
+      bottom: -50px;
       right: 12px;
       padding: 10px 12px;
     }
