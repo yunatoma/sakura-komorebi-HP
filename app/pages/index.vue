@@ -4,6 +4,7 @@
     <SectionsTopWelcome />
     <SectionsTopIntroduction />
     <SectionsTopLetters />
+    <SectionsTopRecruitment />
   </main>
 </template>
 
