@@ -96,15 +96,9 @@
 </template>
 
 <script setup lang="ts">
-type Category = 'news' | 'activity' | 'media'
+import type { InfoPost } from '~/composables/useInfoPosts'
 
-interface InfoItem {
-  id: number
-  category: Category
-  date: string
-  title: string
-  excerpt: string
-}
+type Category = 'news' | 'activity' | 'media'
 
 const tabs = [
   { key: 'all', label: 'すべて' },
@@ -117,31 +111,22 @@ const activeTab = ref<string>('all')
 const currentPage = ref(1)
 const itemsPerPage = 9
 
-// タブ変更時はページをリセット
 function setTab(key: string) {
   activeTab.value = key
   currentPage.value = 1
 }
 
-const allItems: InfoItem[] = [
-  { id: 1, category: 'news', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 2, category: 'news', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 3, category: 'news', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 4, category: 'activity', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 5, category: 'activity', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 6, category: 'media', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 7, category: 'media', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 8, category: 'activity', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 9, category: 'news', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 10, category: 'news', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 11, category: 'activity', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-  { id: 12, category: 'media', date: '2024-04-01', title: 'タイトルが入ります。タイトルが入ります。', excerpt: '本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが入ります。本文の抜き出しが…' },
-]
+const { fetchAll } = useInfoPosts()
+const allItems = ref<InfoPost[]>([])
+
+onMounted(async () => {
+  allItems.value = await fetchAll()
+})
 
 const filteredItems = computed(() =>
   activeTab.value === 'all'
-    ? allItems
-    : allItems.filter(item => item.category === activeTab.value)
+    ? allItems.value
+    : allItems.value.filter(item => item.category === activeTab.value)
 )
 
 const totalPages = computed(() => Math.ceil(filteredItems.value.length / itemsPerPage))

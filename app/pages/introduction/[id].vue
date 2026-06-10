@@ -47,11 +47,17 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const { getGardenById } = useGardens()
+import type { Garden } from '~/composables/useGardens'
 
-const id = Number(route.params.id)
-const garden = getGardenById(id)
+const route = useRoute()
+const { fetchById } = useGardens()
+
+const id = route.params.id as string
+const garden = ref<Garden | null>(null)
+
+onMounted(async () => {
+  garden.value = await fetchById(id)
+})
 </script>
 
 <style scoped lang="scss">

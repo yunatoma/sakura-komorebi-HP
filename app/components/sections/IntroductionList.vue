@@ -101,6 +101,7 @@
 
 <script setup lang="ts">
 import { useScrollAnimation } from '~/composables/useScrollAnimation'
+import type { Garden } from '~/composables/useGardens'
 
 const emit = defineEmits<{ 'tab-change': [label: string] }>()
 
@@ -114,12 +115,11 @@ const gardenTypes = ['認定保育所', '小規模保育所', '小規模保育�
 type GardenType = typeof gardenTypes[number]
 const activeType = ref<GardenType>('認定保育所')
 
-const { allGardens } = useGardens()
+const { fetchAll } = useGardens()
+const allGardens = ref<Garden[]>([])
 
-const prefectures = computed(() => [...new Set(allGardens.map(g => g.prefecture))])
-const activePref = ref(prefectures.value[0])
-
-onMounted(() => {
+onMounted(async () => {
+  allGardens.value = await fetchAll()
   const prefQuery = route.query.pref as string | undefined
   if (prefQuery && prefectures.value.includes(prefQuery)) {
     activeTab.value = 'pref'
@@ -128,14 +128,17 @@ onMounted(() => {
   }
 })
 
+const prefectures = computed(() => [...new Set(allGardens.value.map(g => g.prefecture))])
+const activePref = ref('')
+
 const perPage = 9
 const currentPage = ref(1)
 
 const filteredGardens = computed(() => {
   if (activeTab.value === 'type') {
-    return allGardens.filter(g => g.typeCategory === activeType.value)
+    return allGardens.value.filter(g => g.typeCategory === activeType.value)
   }
-  return allGardens.filter(g => g.prefecture === activePref.value)
+  return allGardens.value.filter(g => g.prefecture === activePref.value)
 })
 
 const totalPages = computed(() => Math.ceil(filteredGardens.value.length / perPage))

@@ -34,8 +34,15 @@
 </template>
 
 <script setup lang="ts">
-const { allPosts } = useInfoPosts()
-const latestPost = allPosts[0] ?? null
+import type { InfoPost } from '~/composables/useInfoPosts'
+
+const { fetchAll } = useInfoPosts()
+const latestPost = ref<InfoPost | null>(null)
+
+onMounted(async () => {
+  const posts = await fetchAll()
+  latestPost.value = posts[0] ?? null
+})
 
 function formatDate(date: string) {
   const [y, m, d] = date.split('-')

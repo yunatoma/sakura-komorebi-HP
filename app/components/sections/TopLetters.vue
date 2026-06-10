@@ -52,12 +52,20 @@ const props = withDefaults(defineProps<{ limit?: number; gardenName?: string }>(
 
 const { elementRef: lettersRef, isVisible } = useScrollAnimation(0.1)
 
-const { allPosts } = useLetterPosts()
+import type { LetterPost } from '~/composables/useLetterPosts'
+
+const { fetchAll } = useLetterPosts()
+const allPosts = ref<LetterPost[]>([])
+
+onMounted(async () => {
+  allPosts.value = await fetchAll()
+})
+
 const posts = computed(() => {
-  const n = props.limit > 0 ? props.limit : allPosts.length
-  if (!props.gardenName) return allPosts.slice(0, n)
-  const matched = allPosts.filter(p => p.garden === props.gardenName)
-  const others = allPosts.filter(p => p.garden !== props.gardenName)
+  const n = props.limit > 0 ? props.limit : allPosts.value.length
+  if (!props.gardenName) return allPosts.value.slice(0, n)
+  const matched = allPosts.value.filter(p => p.garden === props.gardenName)
+  const others = allPosts.value.filter(p => p.garden !== props.gardenName)
   return [...matched, ...others].slice(0, n)
 })
 </script>

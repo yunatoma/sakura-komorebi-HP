@@ -37,11 +37,17 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const { getPostById } = useInfoPosts()
+import type { InfoPost } from '~/composables/useInfoPosts'
 
-const id = Number(route.params.id)
-const post = getPostById(id)
+const route = useRoute()
+const { fetchById } = useInfoPosts()
+
+const id = route.params.id as string
+const post = ref<InfoPost | null>(null)
+
+onMounted(async () => {
+  post.value = await fetchById(id)
+})
 </script>
 
 <style scoped lang="scss">

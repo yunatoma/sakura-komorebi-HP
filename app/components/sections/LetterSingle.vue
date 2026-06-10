@@ -23,7 +23,7 @@
             <div class="letter-single__image-wrap">
               <img
                 class="letter-single__image"
-                :src="post.image"
+                :src="post.imageUrl"
                 :alt="post.excerpt"
                 loading="lazy"
               />

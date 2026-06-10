@@ -25,7 +25,7 @@ onMounted(() => {
   if (fv) {
     observer = new IntersectionObserver(
       ([entry]) => {
-        isVisible.value = !entry.isIntersecting
+        if (entry) isVisible.value = !entry.isIntersecting
       },
       { threshold: 0 }
     )

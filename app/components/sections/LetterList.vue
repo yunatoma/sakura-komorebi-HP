@@ -48,7 +48,7 @@
             >
               <NuxtLink :to="`/letter/${post.id}`" class="letter-list__card">
                 <div class="letter-list__card-image">
-                  <img :src="post.image" :alt="post.title" loading="lazy" />
+                  <img :src="post.imageUrl" :alt="post.title" loading="lazy" />
                 </div>
                 <div class="letter-list__card-body">
                   <p class="letter-list__card-garden">{{ post.garden }}</p>
@@ -105,25 +105,23 @@
 
 <script setup lang="ts">
 import { useScrollAnimation } from '~/composables/useScrollAnimation'
+import type { LetterPost } from '~/composables/useLetterPosts'
 
 const { elementRef: listRef, isVisible } = useScrollAnimation(0.1)
 
-const allPosts = [
-  { id: 1,  image: '/images/letter-naha.webp',              garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '年長さんクラス、美ら海水族館に遠足に行きました！', date: '2024ねん4がつ15にち',  pref: '沖縄県',  year: 2024, month: 4 },
-  { id: 2,  image: '/images/letter-hiroshima.webp',     garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: '年少さん、ピクニックへ♪',                         date: '2024ねん4がつ6にち',   pref: '広島県',  year: 2024, month: 4 },
-  { id: 3,  image: '/images/letter-shinjuku-drawing.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '年少さんクラス、お絵描き会',                       date: '2024ねん2がつ10にち',  pref: '東京都',  year: 2024, month: 2 },
-  { id: 4,  image: '/images/garden-nagoya.webp',        garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: 'しぶや園の日常',                                   date: '2024ねん1がつ21にち',  pref: '東京都',  year: 2024, month: 1 },
-  { id: 5,  image: '/images/letter-osaka.webp',        garden: 'おおさか園',   title: 'おおさか園からのおたより',     excerpt: 'ローマ字のお勉強',                                 date: '2023ねん12がつ10にち', pref: '大阪府',  year: 2023, month: 12 },
-  { id: 6,  image: '/images/garden-sagamihara.webp',        garden: 'よこはま園',   title: 'よこはま園からのおたより',     excerpt: '年長さんクラス、科学博物館に遠足！',               date: '2023ねん11がつ9にち',  pref: '神奈川県', year: 2023, month: 11 },
-  { id: 7,  image: '/images/garden-yokohama.webp',      garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '秋の収穫体験、さつまいも掘りに行きました',         date: '2023ねん10がつ20にち', pref: '沖縄県',  year: 2023, month: 10 },
-  { id: 8,  image: '/images/letter-shinjuku-sports.webp',     garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '運動会、みんな頑張りました！',                     date: '2023ねん9がつ30にち',  pref: '東京都',  year: 2023, month: 9 },
-  { id: 9,  image: '/images/garden-kobe.webp',           garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: 'たなばた会、笹に願いを込めて',                     date: '2023ねん7がつ7にち',   pref: '広島県',  year: 2023, month: 7 },
-  { id: 10, image: '/images/garden-osaka.webp',       garden: 'きゅうしゅう園', title: 'きゅうしゅう園からのおたより', excerpt: '春の遠足、公園で楽しく遊びました',               date: '2023ねん5がつ18にち',  pref: '福岡県',  year: 2023, month: 5 },
-  { id: 11, image: '/images/nenkan-halloween.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '絵の具あそび、みんな楽しんでいます',               date: '2023ねん4がつ5にち',   pref: '東京都',  year: 2023, month: 4 },
-  { id: 12, image: '/images/nenkan-entrance-ceremony.webp',   garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: '新年度スタート！入園式の様子',                     date: '2023ねん4がつ1にち',   pref: '東京都',  year: 2023, month: 4 },
-]
+const { fetchAll } = useLetterPosts()
+const allPosts = ref<LetterPost[]>([])
 
-const prefectures = computed(() => [...new Set(allPosts.map(p => p.pref))])
+onMounted(async () => {
+  allPosts.value = await fetchAll()
+})
+
+function parseDateParts(dateStr: string) {
+  const m = dateStr.match(/(\d{4})ねん(\d+)がつ/)
+  return m ? { year: Number(m[1]), month: Number(m[2]) } : { year: 0, month: 0 }
+}
+
+const prefectures = computed(() => [...new Set(allPosts.value.map(p => p.pref))])
 const selectedPref = ref('')
 const selectedGarden = ref('')
 const activeFilter = ref({ pref: '', garden: '' })
@@ -131,8 +129,8 @@ const activeArchive = ref({ year: 0, month: 0 })
 
 const filteredGardens = computed(() => {
   const src = selectedPref.value
-    ? allPosts.filter(p => p.pref === selectedPref.value)
-    : allPosts
+    ? allPosts.value.filter(p => p.pref === selectedPref.value)
+    : allPosts.value
   return [...new Set(src.map(p => p.garden))]
 })
 
@@ -154,9 +152,10 @@ function selectArchive(year: number, month: number) {
 }
 
 const filteredPosts = computed(() => {
-  return allPosts.filter(p => {
+  return allPosts.value.filter(p => {
+    const { year, month } = parseDateParts(p.date)
     if (activeArchive.value.year) {
-      return p.year === activeArchive.value.year && p.month === activeArchive.value.month
+      return year === activeArchive.value.year && month === activeArchive.value.month
     }
     if (activeFilter.value.garden) return p.garden === activeFilter.value.garden
     if (activeFilter.value.pref) return p.pref === activeFilter.value.pref
@@ -173,12 +172,18 @@ const paginatedPosts = computed(() => {
   return filteredPosts.value.slice(start, start + perPage)
 })
 
-const archive = [
-  { year: 2027, months: [1] },
-  { year: 2026, months: [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
-  { year: 2024, months: [4, 2, 1] },
-  { year: 2023, months: [12, 11, 10, 9, 7, 5, 4] },
-]
+const archive = computed(() => {
+  const map = new Map<number, Set<number>>()
+  for (const p of allPosts.value) {
+    const { year, month } = parseDateParts(p.date)
+    if (!year) continue
+    if (!map.has(year)) map.set(year, new Set())
+    map.get(year)!.add(month)
+  }
+  return [...map.entries()]
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, months]) => ({ year, months: [...months].sort((a, b) => b - a) }))
+})
 </script>
 
 <style scoped lang="scss">
