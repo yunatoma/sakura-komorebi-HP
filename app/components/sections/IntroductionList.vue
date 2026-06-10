@@ -111,15 +111,14 @@ const route = useRoute()
 
 const activeTab = ref<'type' | 'pref'>('type')
 
-const gardenTypes = ['認定保育所', '小規模保育所', '小規模保育事業A型'] as const
-type GardenType = typeof gardenTypes[number]
-const activeType = ref<GardenType>('認定保育所')
-
 const { fetchAll } = useGardens()
 const allGardens = ref<Garden[]>([])
+const activeType = ref('')
+const activePref = ref('')
 
 onMounted(async () => {
   allGardens.value = await fetchAll()
+  if (gardenTypes.value.length > 0) activeType.value = gardenTypes.value[0]
   const prefQuery = route.query.pref as string | undefined
   if (prefQuery && prefectures.value.includes(prefQuery)) {
     activeTab.value = 'pref'
@@ -128,15 +127,15 @@ onMounted(async () => {
   }
 })
 
+const gardenTypes = computed(() => [...new Set(allGardens.value.map(g => g.type).filter(Boolean))])
 const prefectures = computed(() => [...new Set(allGardens.value.map(g => g.prefecture))])
-const activePref = ref('')
 
 const perPage = 9
 const currentPage = ref(1)
 
 const filteredGardens = computed(() => {
   if (activeTab.value === 'type') {
-    return allGardens.value.filter(g => g.typeCategory === activeType.value)
+    return allGardens.value.filter(g => g.type === activeType.value)
   }
   return allGardens.value.filter(g => g.prefecture === activePref.value)
 })

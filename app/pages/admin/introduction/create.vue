@@ -2,7 +2,7 @@
   <div class="admin-with-preview">
     <div class="admin-with-preview__form">
       <h1 class="admin-form__title">園の情報 新規追加</h1>
-      <AdminGardenForm ref="formRef" :loading="loading" :all-names="allNames" @submit="handleSubmit" />
+      <AdminGardenForm ref="formRef" :loading="loading" :all-names="allNames" :all-types="allTypes" @submit="handleSubmit" />
     </div>
 
     <aside class="admin-with-preview__panel">
@@ -98,9 +98,14 @@ const { uploadImage } = useStorageUpload()
 const loading = ref(false)
 const formRef = ref<any>(null)
 const allNames = ref<string[]>([])
+const allTypes = ref<{ id: string; name: string }[]>([])
 
-const allGardens = await getAll('gardens')
+const [allGardens, customTypes] = await Promise.all([
+  getAll('gardens'),
+  getAll('gardenTypes'),
+])
 allNames.value = (allGardens as any[]).map(g => g.name).filter(Boolean)
+allTypes.value = (customTypes as any[]).map(t => ({ id: t.id, name: t.name }))
 
 const handleSubmit = async (formData: any, files: Record<string, File | null>, galleryFiles: File[]) => {
   loading.value = true

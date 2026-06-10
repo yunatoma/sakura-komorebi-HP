@@ -3,7 +3,7 @@
     <div class="admin-with-preview__form">
       <h1 class="admin-form__title">園の情報 編集</h1>
       <div v-if="loading" class="admin-form__loading">読み込み中...</div>
-      <AdminGardenForm v-else-if="garden" ref="formRef" :initial="garden" :loading="saving" :all-names="allNames" @submit="handleSubmit" />
+      <AdminGardenForm v-else-if="garden" ref="formRef" :initial="garden" :loading="saving" :all-names="allNames" :all-types="allTypes" @submit="handleSubmit" />
       <p v-else>園の情報が見つかりません</p>
     </div>
 
@@ -108,17 +108,20 @@ const { getOne, getAll, update } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const garden = ref<any>(null)
 const allNames = ref<string[]>([])
+const allTypes = ref<{ id: string; name: string }[]>([])
 const loading = ref(true)
 const saving = ref(false)
 const formRef = ref<any>(null)
 
 const id = route.params.id as string
-const [gardenData, allGardens] = await Promise.all([
+const [gardenData, allGardens, customTypes] = await Promise.all([
   getOne('gardens', id),
   getAll('gardens'),
+  getAll('gardenTypes'),
 ])
 garden.value = gardenData
 allNames.value = (allGardens as any[]).map(g => g.name).filter(Boolean)
+allTypes.value = (customTypes as any[]).map(t => ({ id: t.id, name: t.name }))
 loading.value = false
 
 const handleSubmit = async (formData: any, files: Record<string, File | null>, galleryFiles: File[]) => {

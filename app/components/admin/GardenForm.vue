@@ -24,10 +24,20 @@
         <label class="admin-form__label">施設種別</label>
         <select v-model="form.type" class="admin-form__input">
           <option value="">選択してください</option>
-          <option>認可保育所</option>
-          <option>小規模保育所</option>
-          <option>小規模保育事業A型</option>
+          <option v-for="t in typeOptions" :key="t" :value="t">{{ t }}</option>
         </select>
+        <div v-if="newlyAddedTypes.length > 0" class="admin-form__name-list">
+          <div v-for="(t, i) in newlyAddedTypes" :key="i" class="admin-form__inline">
+            <span class="admin-form__name-item">{{ t.name }}</span>
+            <button type="button" class="admin-form__remove-btn" @click="removeTypeOption(t)">削除</button>
+          </div>
+        </div>
+        <div class="admin-form__inline admin-form__name-add">
+          <input v-model="newTypeInput" type="text" class="admin-form__input" placeholder="例：認定こども園" @keydown.enter.prevent="addTypeOption" />
+          <button type="button" class="admin-form__add-btn" :disabled="addingTypeLoading" @click="addTypeOption">
+            {{ addingTypeLoading ? '...' : '+ 追加' }}
+          </button>
+        </div>
       </div>
       <div class="admin-form__field">
         <label class="admin-form__label">都道府県</label>
@@ -245,6 +255,7 @@ const props = defineProps<{
   initial?: any
   loading?: boolean
   allNames?: string[]
+  allTypes?: { id: string; name: string }[]
 }>()
 
 const emit = defineEmits<{
@@ -273,6 +284,42 @@ const removeNameOption = (i: number) => {
   const removed = customNameOptions.value[i]
   customNameOptions.value.splice(i, 1)
   if (form.name === removed) form.name = ''
+}
+
+const { create, remove } = useFirestore()
+
+const defaultTypes = ['認可保育所', '小規模保育所', '小規模保育事業A型']
+const localTypes = ref<string[]>([
+  ...defaultTypes,
+  ...(props.allTypes ?? []).map(t => t.name).filter(n => !defaultTypes.includes(n)),
+])
+const newlyAddedTypes = ref<{ id: string; name: string }[]>([])
+const newTypeInput = ref('')
+const addingTypeLoading = ref(false)
+
+const typeOptions = computed(() => localTypes.value)
+
+const addTypeOption = async () => {
+  const name = newTypeInput.value.trim()
+  if (!name || localTypes.value.includes(name)) return
+  addingTypeLoading.value = true
+  try {
+    const id = await create('gardenTypes', { name })
+    localTypes.value.push(name)
+    newlyAddedTypes.value.push({ id, name })
+    form.type = name
+    newTypeInput.value = ''
+  } finally {
+    addingTypeLoading.value = false
+  }
+}
+
+const removeTypeOption = async (t: { id: string; name: string }) => {
+  if (!confirm(`「${t.name}」を削除しますか？`)) return
+  await remove('gardenTypes', t.id)
+  localTypes.value = localTypes.value.filter(n => n !== t.name)
+  newlyAddedTypes.value = newlyAddedTypes.value.filter(x => x.id !== t.id)
+  if (form.type === t.name) form.type = ''
 }
 
 const files = reactive<Record<string, File | null>>({
