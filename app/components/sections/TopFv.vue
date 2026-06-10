@@ -11,35 +11,35 @@
       </div>
 
       <!-- White blob (左側テキスト) -->
-      <div class="fv__blob" :class="{ 'is-visible': isVisible }">
+      <div class="fv__blob">
         <h1 class="fv__title">
-          <span class="fv__title-line">一人ひとりの輝きが、</span>
-          <span class="fv__title-line">未来を彩る</span>
+          <span class="fv__title-line fv__title-line--1">一人ひとりの輝きが、</span>
+          <span class="fv__title-line fv__title-line--2">未来を彩る</span>
         </h1>
       </div>
 
       <!-- お知らせ (FVエリア内・右下) -->
-      <div class="fv__news" :class="{ 'is-visible': isVisible }">
+      <NuxtLink
+        v-if="latestPost"
+        :to="`/info/${latestPost.id}`"
+        class="fv__news"
+      >
         <p class="fv__news-heading">お知らせ</p>
-        <p class="fv__news-body">タイトルが入ります。タイトルが入ります。</p>
-        <p class="fv__news-date">2024ねん4がつ1にち</p>
-      </div>
+        <p class="fv__news-body">{{ latestPost.title }}</p>
+        <p class="fv__news-date">{{ formatDate(latestPost.date) }}</p>
+      </NuxtLink>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+const { allPosts } = useInfoPosts()
+const latestPost = allPosts[0] ?? null
 
-const fvRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
-
-onMounted(() => {
-  // FVは常にページ最上部のため、マウント後即座に表示
-  requestAnimationFrame(() => {
-    isVisible.value = true
-  })
-})
+function formatDate(date: string) {
+  const [y, m, d] = date.split('-')
+  return `${y}. ${m}. ${d}`
+}
 </script>
 
 <style scoped lang="scss">
@@ -60,7 +60,6 @@ onMounted(() => {
 .fv {
   padding: 20px 60px 40px;
   margin-top: calc(-100vw * 80 / 1440);
-  overflow-x: clip;
 
   @include sp {
     padding: 16px 20px 60px;
@@ -157,14 +156,10 @@ onMounted(() => {
 
   &__title-line {
     display: block;
-    opacity: 0;
+    animation: fadeInUp 0.7s ease both;
 
-    .is-visible & {
-      animation: fadeInUp 0.7s ease both;
-    }
-
-    &:nth-child(1) { animation-delay: 0.2s; }
-    &:nth-child(2) { animation-delay: 0.5s; }
+    &--1 { animation-delay: 0.2s; }
+    &--2 { animation-delay: 0.5s; }
   }
 
   // ---- お知らせ (画像下端からはみ出し) ----
@@ -180,10 +175,12 @@ onMounted(() => {
     border-radius: 12px;
     padding: 18px 20px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    opacity: 0;
+    text-decoration: none;
+    display: block;
+    animation: fadeInUp 0.7s ease 0.8s both;
 
-    &.is-visible {
-      animation: fadeInUp 0.7s ease 0.8s both;
+    &:hover {
+      opacity: 0.85;
     }
 
     @include sp {
