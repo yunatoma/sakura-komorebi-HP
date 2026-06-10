@@ -18,14 +18,14 @@
 
         <!-- Buttons -->
         <div class="recruitment__buttons" :class="{ 'is-visible': isVisible }">
-          <a href="#" class="recruitment__btn recruitment__btn--outline">
+          <NuxtLink to="/recruit" class="recruitment__btn recruitment__btn--outline">
             採用情報
             <span class="recruitment__btn-arrow">›</span>
-          </a>
-          <a href="#" class="recruitment__btn recruitment__btn--yellow">
+          </NuxtLink>
+          <NuxtLink to="/recruit#entry" class="recruitment__btn recruitment__btn--yellow">
             エントリー
             <span class="recruitment__btn-arrow">›</span>
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </div>

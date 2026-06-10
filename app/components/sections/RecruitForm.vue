@@ -1,5 +1,5 @@
 <template>
-  <section class="recruit-form" ref="sectionRef">
+  <section id="entry" class="recruit-form" ref="sectionRef">
     <div class="recruit-form__inner">
       <form class="recruit-form__card" :class="{ 'is-visible': isVisible }" @submit.prevent="handleSubmit" novalidate>
 
