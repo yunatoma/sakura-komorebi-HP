@@ -29,10 +29,17 @@
 </template>
 
 <script setup lang="ts">
-import { useScrollAnimation } from '~/composables/useScrollAnimation'
+import { ref, onMounted } from 'vue'
 
-const { elementRef: fvRef, isVisible } = useScrollAnimation(0.1)
+const fvRef = ref<HTMLElement | null>(null)
+const isVisible = ref(false)
 
+onMounted(() => {
+  // FVは常にページ最上部のため、マウント後即座に表示
+  requestAnimationFrame(() => {
+    isVisible.value = true
+  })
+})
 </script>
 
 <style scoped lang="scss">
