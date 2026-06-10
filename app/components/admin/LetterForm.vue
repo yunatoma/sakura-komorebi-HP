@@ -2,26 +2,22 @@
   <form class="admin-form__body" @submit.prevent="handleSubmit">
     <div class="admin-form__field">
       <label class="admin-form__label">園名</label>
-      <div class="admin-form__garden-row">
-        <select v-model="form.garden" class="admin-form__input" required @change="onGardenChange">
-          <option value="" disabled>選択してください</option>
-          <option v-for="g in localGardens" :key="g.id" :value="g.name">{{ g.name }}</option>
-          <option v-if="form.garden && !localGardens.some(g => g.name === form.garden)" :value="form.garden">{{ form.garden }}</option>
-        </select>
-        <button type="button" class="admin-form__garden-add-btn" @click="addingGarden = !addingGarden">+</button>
+      <select v-model="form.garden" class="admin-form__input" required @change="onGardenChange">
+        <option value="" disabled>選択してください</option>
+        <option v-for="g in localGardens" :key="g.id" :value="g.name">{{ g.name }}</option>
+        <option v-if="form.garden && !localGardens.some(g => g.name === form.garden)" :value="form.garden">{{ form.garden }}</option>
+      </select>
+      <div v-if="newlyAdded.length" class="admin-form__name-list">
+        <div v-for="g in newlyAdded" :key="g.id" class="admin-form__inline">
+          <span class="admin-form__name-item">{{ g.name }}</span>
+          <button type="button" class="admin-form__remove-btn" @click="handleRemoveGarden(g)">削除</button>
+        </div>
       </div>
-      <div v-if="addingGarden" class="admin-form__garden-inline">
-        <input v-model="newGardenName" type="text" class="admin-form__input" placeholder="新しい園名を入力" @keydown.enter.prevent="handleAddGarden" />
+      <div class="admin-form__inline admin-form__name-add">
+        <input v-model="newGardenName" type="text" class="admin-form__input" placeholder="例：しぶや園" @keydown.enter.prevent="handleAddGarden" />
         <button type="button" class="admin-form__add-btn" :disabled="addingGardenLoading" @click="handleAddGarden">
-          {{ addingGardenLoading ? '...' : '追加' }}
+          {{ addingGardenLoading ? '...' : '+ 追加' }}
         </button>
-      </div>
-      <div v-if="newlyAdded.length" class="admin-form__garden-new-list">
-        <span class="admin-form__garden-new-label">今回追加：</span>
-        <span v-for="g in newlyAdded" :key="g.id" class="admin-form__garden-chip">
-          {{ g.name }}
-          <button type="button" class="admin-form__garden-chip-remove" @click="handleRemoveGarden(g)">×</button>
-        </span>
       </div>
     </div>
 
@@ -147,7 +143,6 @@ const { create, remove } = useFirestore()
 
 const localGardens = ref([...props.gardens])
 const newlyAdded = ref<{ id: string; name: string }[]>([])
-const addingGarden = ref(false)
 const newGardenName = ref('')
 const addingGardenLoading = ref(false)
 
@@ -163,7 +158,6 @@ const handleAddGarden = async () => {
     form.garden = name
     form.gardenId = id
     newGardenName.value = ''
-    addingGarden.value = false
   } finally {
     addingGardenLoading.value = false
   }
@@ -235,71 +229,36 @@ defineExpose({ form, previewUrl })
 <style scoped lang="scss">
 @use '~/assets/styles/admin' as *;
 
-.admin-form__garden-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  select {
-    flex: 1;
-  }
-}
-
-.admin-form__garden-add-btn {
-  width: 32px;
-  height: 38px;
-  border-radius: 6px;
-  background: #55000C;
-  color: #fff;
-  border: none;
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
-  flex-shrink: 0;
-
-  &:hover {
-    opacity: 0.85;
-  }
-}
-
-.admin-form__garden-inline {
-  display: flex;
-  gap: 8px;
+.admin-form__name-list {
   margin-top: 8px;
-}
-
-.admin-form__garden-new-list {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 6px;
+}
+
+.admin-form__name-item {
+  font-size: 14px;
+  flex: 1;
+}
+
+.admin-form__name-add {
+  display: flex;
+  gap: 8px;
   margin-top: 8px;
-}
+  flex-wrap: nowrap;
+  align-items: stretch;
 
-.admin-form__garden-new-label {
-  font-size: 11px;
-  color: #999;
-}
+  .admin-form__input {
+    flex: 1;
+    min-width: 0;
+  }
 
-.admin-form__garden-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px 2px 10px;
-  background: #faf0f0;
-  border: 1px solid #EF8F9C;
-  border-radius: 20px;
-  font-size: 12px;
-  color: #55000C;
-}
-
-.admin-form__garden-chip-remove {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: 12px;
-  color: #EF8F9C;
-  cursor: pointer;
-  line-height: 1;
+  .admin-form__add-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: auto;
+  }
 }
 </style>

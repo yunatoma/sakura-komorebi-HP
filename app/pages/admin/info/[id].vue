@@ -3,7 +3,7 @@
     <div class="admin-with-preview__form">
       <h1 class="admin-form__title">お知らせ 編集</h1>
       <div v-if="loading" class="admin-form__loading">読み込み中...</div>
-      <AdminInfoForm v-else-if="post" ref="formRef" :initial="post" :loading="saving" @submit="handleSubmit" />
+      <AdminInfoForm v-else-if="post" ref="formRef" :initial="post" :loading="saving" :all-categories="allCategories" @submit="handleSubmit" />
       <p v-else>投稿が見つかりません</p>
     </div>
 
@@ -38,16 +38,22 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const route = useRoute()
-const { getOne, update } = useFirestore()
+const { getOne, getAll, update } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const post = ref<any>(null)
+const allCategories = ref<{ id: string; value: string; label: string }[]>([])
 const loading = ref(true)
 const saving = ref(false)
 const formRef = ref<any>(null)
 
 const id = route.params.id as string
 
-post.value = await getOne('infoPosts', id)
+const [postData, customCats] = await Promise.all([
+  getOne('infoPosts', id),
+  getAll('infoCategories'),
+])
+post.value = postData
+allCategories.value = (customCats as any[]).map(c => ({ id: c.id, value: c.value, label: c.label }))
 loading.value = false
 
 const handleSubmit = async (formData: any, imageFile: File | null) => {

@@ -97,16 +97,6 @@
 
 <script setup lang="ts">
 import type { InfoPost } from '~/composables/useInfoPosts'
-
-type Category = 'news' | 'activity' | 'media'
-
-const tabs = [
-  { key: 'all', label: 'すべて' },
-  { key: 'news', label: 'お知らせ' },
-  { key: 'activity', label: '活動紹介' },
-  { key: 'media', label: 'メディア情報' },
-]
-
 const activeTab = ref<string>('all')
 const currentPage = ref(1)
 const itemsPerPage = 9
@@ -121,6 +111,27 @@ const allItems = ref<InfoPost[]>([])
 
 onMounted(async () => {
   allItems.value = await fetchAll()
+})
+
+function getCategoryLabel(value: string) {
+  const map: Record<string, string> = {
+    news: 'お知らせ',
+    activity: '活動紹介',
+    media: 'メディア情報',
+  }
+  return map[value] ?? value
+}
+
+const tabs = computed(() => {
+  const seen = new Set<string>()
+  const dynamic: { key: string; label: string }[] = []
+  for (const item of allItems.value) {
+    if (!seen.has(item.category)) {
+      seen.add(item.category)
+      dynamic.push({ key: item.category, label: getCategoryLabel(item.category) })
+    }
+  }
+  return [{ key: 'all', label: 'すべて' }, ...dynamic]
 })
 
 const filteredItems = computed(() =>
@@ -141,13 +152,8 @@ function formatDate(date: string) {
   return `${y}. ${m}. ${d}`
 }
 
-function categoryLabel(category: Category) {
-  const map: Record<Category, string> = {
-    news: 'お知らせ',
-    activity: '活動紹介',
-    media: 'メディア情報',
-  }
-  return map[category]
+function categoryLabel(category: string) {
+  return getCategoryLabel(category)
 }
 </script>
 
@@ -306,6 +312,7 @@ $color-media: #F5C842;
     align-items: center;
     justify-content: center;
     gap: 6px;
+    background-color: $color-pink;
 
     @include sp {
       width: 70px;

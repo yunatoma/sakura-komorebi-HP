@@ -2,7 +2,7 @@
   <div class="admin-with-preview">
     <div class="admin-with-preview__form">
       <h1 class="admin-form__title">お知らせ 新規作成</h1>
-      <AdminInfoForm ref="formRef" :loading="loading" @submit="handleSubmit" />
+      <AdminInfoForm ref="formRef" :loading="loading" :all-categories="allCategories" @submit="handleSubmit" />
     </div>
 
     <aside class="admin-with-preview__panel">
@@ -32,10 +32,14 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
-const { create } = useFirestore()
+const { create, getAll } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const loading = ref(false)
 const formRef = ref<any>(null)
+const allCategories = ref<{ id: string; value: string; label: string }[]>([])
+
+const customCats = await getAll('infoCategories')
+allCategories.value = (customCats as any[]).map(c => ({ id: c.id, value: c.value, label: c.label }))
 
 const handleSubmit = async (formData: any, imageFile: File | null) => {
   loading.value = true

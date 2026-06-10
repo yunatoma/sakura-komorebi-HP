@@ -3,10 +3,21 @@
     <div class="admin-form__field">
       <label class="admin-form__label">カテゴリ</label>
       <select v-model="form.category" class="admin-form__input" required>
-        <option value="news">お知らせ</option>
-        <option value="activity">活動報告</option>
-        <option value="media">メディア</option>
+        <option value="" disabled>選択してください</option>
+        <option v-for="cat in localCategories" :key="cat.value" :value="cat.value">{{ cat.label }}</option>
       </select>
+      <div v-if="newlyAdded.length" class="admin-form__name-list">
+        <div v-for="cat in newlyAdded" :key="cat.value" class="admin-form__inline">
+          <span class="admin-form__name-item">{{ cat.label }}</span>
+          <button type="button" class="admin-form__remove-btn" @click="handleRemoveCategory(cat)">削除</button>
+        </div>
+      </div>
+      <div class="admin-form__inline admin-form__name-add">
+        <input v-model="newCategoryName" type="text" class="admin-form__input" placeholder="例：イベント" @keydown.enter.prevent="handleAddCategory" />
+        <button type="button" class="admin-form__add-btn" :disabled="addingLoading" @click="handleAddCategory">
+          {{ addingLoading ? '...' : '+ 追加' }}
+        </button>
+      </div>
     </div>
 
     <div class="admin-form__field">
@@ -66,11 +77,52 @@
 const props = defineProps<{
   initial?: any
   loading?: boolean
+  allCategories?: { id?: string; value: string; label: string }[]
 }>()
 
 const emit = defineEmits<{
   submit: [formData: any, imageFile: File | null]
 }>()
+
+const { create, remove } = useFirestore()
+
+const defaultCategories = [
+  { value: 'news', label: 'お知らせ' },
+  { value: 'activity', label: '活動紹介' },
+  { value: 'media', label: 'メディア情報' },
+]
+
+const localCategories = ref([
+  ...defaultCategories,
+  ...(props.allCategories ?? []),
+])
+
+const newlyAdded = ref<{ id: string; value: string; label: string }[]>([])
+const newCategoryName = ref('')
+const addingLoading = ref(false)
+
+const handleAddCategory = async () => {
+  const name = newCategoryName.value.trim()
+  if (!name || localCategories.value.some(c => c.label === name)) return
+  addingLoading.value = true
+  try {
+    const id = await create('infoCategories', { value: name, label: name })
+    localCategories.value.push({ value: name, label: name })
+    newlyAdded.value.push({ id, value: name, label: name })
+    form.category = name
+    newCategoryName.value = ''
+  } finally {
+    addingLoading.value = false
+  }
+}
+
+const handleRemoveCategory = async (cat: { id: string; value: string; label: string }) => {
+  if (!confirm(`「${cat.label}」を削除しますか？`)) return
+  await remove('infoCategories', cat.id)
+  localCategories.value = localCategories.value.filter(c => c.value !== cat.value)
+  newlyAdded.value = newlyAdded.value.filter(c => c.value !== cat.value)
+  if (form.category === cat.value) form.category = ''
+}
 
 const imageFile = ref<File | null>(null)
 const previewUrl = ref<string>(props.initial?.imageUrl ?? '')
@@ -102,4 +154,37 @@ defineExpose({ form, previewUrl })
 
 <style scoped lang="scss">
 @use '~/assets/styles/admin' as *;
+
+.admin-form__name-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-form__name-item {
+  font-size: 14px;
+  flex: 1;
+}
+
+.admin-form__name-add {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  .admin-form__input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-form__add-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: auto;
+  }
+}
 </style>
