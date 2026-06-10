@@ -87,6 +87,7 @@ function formatDate(date: string) {
     overflow: hidden;
     height: 540px;
     width: 100%;
+    animation: fadeInUp 1.2s ease 0.1s both;
 
     @include sp {
       height: 460px;

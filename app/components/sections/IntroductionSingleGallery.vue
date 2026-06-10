@@ -54,6 +54,11 @@ const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInUpIcon {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 24px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -103,7 +108,7 @@ const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
     opacity: 0;
 
     &.is-visible {
-      animation: fadeInUp 0.6s ease 0.1s both;
+      animation: fadeInUpIcon 0.6s ease 0.1s both;
     }
   }
 
