@@ -14,10 +14,6 @@
         <p class="dashboard__card-label">園の情報</p>
         <p class="dashboard__card-desc">園の内容を編集</p>
       </NuxtLink>
-      <NuxtLink to="/admin/tags" class="dashboard__card">
-        <p class="dashboard__card-label">タグ管理</p>
-        <p class="dashboard__card-desc">タグの追加・編集・削除</p>
-      </NuxtLink>
     </div>
   </div>
 </template>

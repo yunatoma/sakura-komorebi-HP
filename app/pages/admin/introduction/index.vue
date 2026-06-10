@@ -55,3 +55,7 @@ const handleDelete = async (id: string) => {
 
 await load()
 </script>
+
+<style scoped lang="scss">
+@use '~/assets/styles/admin' as *;
+</style>
