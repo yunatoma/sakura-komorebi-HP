@@ -1,3 +1,10 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: 'こもれびだより｜桜のこもれびキッズランド｜日本全国の認証・認可保育園',
+  description: 'こもれびだよりでは、日本全国各地に展開する桜のこもれびキッズランド各園の日々の様子やお知らせ、最新情報、イベント情報についてお届けします。',
+})
+</script>
+
 <template>
   <main class="letter-list-page">
     <!-- Page heading -->

@@ -33,6 +33,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: '各園のご紹介｜桜のこもれびキッズランド｜日本全国の認証・認可保育園',
+  description: '桜のこもれびキッズランドは関東、関西など日本全国各地で保育園を運営しています。各地の桜のこもれびキッズランドの園内の様子や園長からのメッセージ、園の概要についてご紹介します。',
+})
+
 const activeBreadcrumb = ref('園の種類から探す')
 </script>
 

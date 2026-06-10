@@ -1,3 +1,10 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: 'お問い合わせ｜桜のこもれびキッズランド｜日本全国の認証・認可保育園',
+  description: '桜のこもれびキッズランドへのお問い合わせはこちらから。ご入園や見学のご相談、その他ご質問など、お気軽にお問い合わせください。',
+})
+</script>
+
 <template>
   <main class="contact-page">
     <!-- ページヘッディング -->
