@@ -11,7 +11,7 @@
         <div class="info-single__image-wrap">
           <img
             class="info-single__image"
-            :src="post.image"
+            :src="post.imageUrl"
             :alt="post.title"
             loading="lazy"
           />

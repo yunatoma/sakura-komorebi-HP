@@ -21,7 +21,7 @@
         <li v-for="post in posts" :key="post.id" class="letters__item">
           <NuxtLink :to="`/letter/${post.id}`" class="letters__card">
             <div class="letters__card-image">
-              <img :src="post.image" :alt="post.title" />
+              <img :src="post.imageUrl" :alt="post.title" />
             </div>
             <div class="letters__card-body">
               <p class="letters__card-title">{{ post.title }}</p>

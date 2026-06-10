@@ -10,14 +10,14 @@
     <table v-else class="admin-list__table">
       <thead>
         <tr>
-          <th>園名</th>
-          <th>種別</th>
-          <th>都道府県</th>
+          <th class="sortable" @click="toggleSort('name')">園名<span class="sort-icon" :class="sortIconClass('name')">{{ sortIconChar('name') }}</span></th>
+          <th class="sortable" @click="toggleSort('typeCategory')">種別<span class="sort-icon" :class="sortIconClass('typeCategory')">{{ sortIconChar('typeCategory') }}</span></th>
+          <th class="sortable" @click="toggleSort('prefecture')">都道府県<span class="sort-icon" :class="sortIconClass('prefecture')">{{ sortIconChar('prefecture') }}</span></th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="garden in gardens" :key="garden.id">
+        <tr v-for="garden in sortedGardens" :key="garden.id">
           <td>{{ garden.name }}</td>
           <td>{{ garden.typeCategory }}</td>
           <td>{{ garden.prefecture }}</td>
@@ -40,6 +40,36 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 const { getAll, remove } = useFirestore()
 const gardens = ref<any[]>([])
 const loading = ref(true)
+const sortKey = ref('name')
+const sortDir = ref<'asc' | 'desc'>('asc')
+
+const toggleSort = (key: string) => {
+  if (sortKey.value === key) {
+    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortKey.value = key
+    sortDir.value = 'asc'
+  }
+}
+
+const sortIconChar = (key: string) => {
+  if (sortKey.value !== key) return '↕'
+  return sortDir.value === 'asc' ? '↑' : '↓'
+}
+
+const sortIconClass = (key: string) => {
+  if (sortKey.value !== key) return ''
+  return sortDir.value === 'asc' ? 'sort-icon--asc' : 'sort-icon--desc'
+}
+
+const sortedGardens = computed(() => {
+  return [...gardens.value].sort((a, b) => {
+    const av = a[sortKey.value] ?? ''
+    const bv = b[sortKey.value] ?? ''
+    const cmp = String(av).localeCompare(String(bv), 'ja')
+    return sortDir.value === 'asc' ? cmp : -cmp
+  })
+})
 
 const load = async () => {
   loading.value = true

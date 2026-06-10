@@ -5,23 +5,82 @@
       <h2 class="admin-form__group-title">基本情報</h2>
       <div class="admin-form__field">
         <label class="admin-form__label">園名</label>
-        <input v-model="form.name" type="text" class="admin-form__input" required placeholder="例：しぶや園" />
+        <select v-model="form.name" class="admin-form__input" required>
+          <option value="">選択してください</option>
+          <option v-for="name in nameOptions" :key="name" :value="name">{{ name }}</option>
+        </select>
+        <div v-if="customNameOptions.length > 0" class="admin-form__name-list">
+          <div v-for="(name, i) in customNameOptions" :key="i" class="admin-form__inline">
+            <span class="admin-form__name-item">{{ name }}</span>
+            <button type="button" class="admin-form__remove-btn" @click="removeNameOption(i)">削除</button>
+          </div>
+        </div>
+        <div class="admin-form__inline admin-form__name-add">
+          <input v-model="newNameInput" type="text" class="admin-form__input" placeholder="例：しぶや園" @keydown.enter.prevent="addNameOption" />
+          <button type="button" class="admin-form__add-btn" @click="addNameOption">+ 追加</button>
+        </div>
       </div>
       <div class="admin-form__field">
-        <label class="admin-form__label">種別カテゴリ</label>
-        <select v-model="form.typeCategory" class="admin-form__input">
-          <option>認定保育所</option>
+        <label class="admin-form__label">施設種別</label>
+        <select v-model="form.type" class="admin-form__input">
+          <option value="">選択してください</option>
+          <option>認可保育所</option>
           <option>小規模保育所</option>
           <option>小規模保育事業A型</option>
         </select>
       </div>
       <div class="admin-form__field">
-        <label class="admin-form__label">施設種別</label>
-        <input v-model="form.type" type="text" class="admin-form__input" placeholder="例：認可保育所" />
-      </div>
-      <div class="admin-form__field">
         <label class="admin-form__label">都道府県</label>
-        <input v-model="form.prefecture" type="text" class="admin-form__input" placeholder="例：東京都" />
+        <select v-model="form.prefecture" class="admin-form__input">
+          <option value="">選択してください</option>
+          <option>北海道</option>
+          <option>青森県</option>
+          <option>岩手県</option>
+          <option>宮城県</option>
+          <option>秋田県</option>
+          <option>山形県</option>
+          <option>福島県</option>
+          <option>茨城県</option>
+          <option>栃木県</option>
+          <option>群馬県</option>
+          <option>埼玉県</option>
+          <option>千葉県</option>
+          <option>東京都</option>
+          <option>神奈川県</option>
+          <option>新潟県</option>
+          <option>富山県</option>
+          <option>石川県</option>
+          <option>福井県</option>
+          <option>山梨県</option>
+          <option>長野県</option>
+          <option>岐阜県</option>
+          <option>静岡県</option>
+          <option>愛知県</option>
+          <option>三重県</option>
+          <option>滋賀県</option>
+          <option>京都府</option>
+          <option>大阪府</option>
+          <option>兵庫県</option>
+          <option>奈良県</option>
+          <option>和歌山県</option>
+          <option>鳥取県</option>
+          <option>島根県</option>
+          <option>岡山県</option>
+          <option>広島県</option>
+          <option>山口県</option>
+          <option>徳島県</option>
+          <option>香川県</option>
+          <option>愛媛県</option>
+          <option>高知県</option>
+          <option>福岡県</option>
+          <option>佐賀県</option>
+          <option>長崎県</option>
+          <option>熊本県</option>
+          <option>大分県</option>
+          <option>宮崎県</option>
+          <option>鹿児島県</option>
+          <option>沖縄県</option>
+        </select>
       </div>
       <div class="admin-form__field">
         <label class="admin-form__label">サムネイル画像</label>
@@ -185,6 +244,7 @@
 const props = defineProps<{
   initial?: any
   loading?: boolean
+  allNames?: string[]
 }>()
 
 const emit = defineEmits<{
@@ -192,6 +252,28 @@ const emit = defineEmits<{
 }>()
 
 const dayLabels = ['月', '火', '水', '木', '金', '土', '日']
+
+const defaultNameOptions = props.allNames && props.allNames.length > 0
+  ? props.allNames
+  : props.initial?.name ? [props.initial.name] : []
+const customNameOptions = ref<string[]>([])
+const newNameInput = ref('')
+
+const nameOptions = computed(() => [...defaultNameOptions, ...customNameOptions.value])
+
+const addNameOption = () => {
+  const name = newNameInput.value.trim()
+  if (!name || nameOptions.value.includes(name)) return
+  customNameOptions.value.push(name)
+  form.name = name
+  newNameInput.value = ''
+}
+
+const removeNameOption = (i: number) => {
+  const removed = customNameOptions.value[i]
+  customNameOptions.value.splice(i, 1)
+  if (form.name === removed) form.name = ''
+}
 
 const files = reactive<Record<string, File | null>>({
   img: null,
@@ -228,7 +310,6 @@ const defaultInfo = () => ({
 
 const form = reactive({
   name: props.initial?.name ?? '',
-  typeCategory: props.initial?.typeCategory ?? '認定保育所',
   type: props.initial?.type ?? '',
   prefecture: props.initial?.prefecture ?? '',
   img: props.initial?.img ?? '',
@@ -262,6 +343,8 @@ const removeGallery = (i: number) => form.gallery.splice(i, 1)
 const handleSubmit = () => {
   emit('submit', JSON.parse(JSON.stringify(form)), { ...files }, [...galleryFiles.value])
 }
+
+defineExpose({ form, previews })
 </script>
 
 <style scoped lang="scss">
@@ -327,5 +410,36 @@ const handleSubmit = () => {
 
 .admin-form__input--sm {
   width: 160px;
+}
+
+.admin-form__name-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-form__name-item {
+  font-size: 14px;
+  flex: 1;
+}
+
+.admin-form__name-add {
+  margin-top: 8px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+
+  .admin-form__input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-form__add-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: auto;
+  }
 }
 </style>

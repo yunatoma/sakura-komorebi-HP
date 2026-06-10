@@ -10,14 +10,14 @@
     <table v-else class="admin-list__table">
       <thead>
         <tr>
-          <th>日付</th>
-          <th>タイトル</th>
-          <th>園名</th>
+          <th class="sortable" @click="toggleSort('date')">日付<span class="sort-icon" :class="sortIconClass('date')">{{ sortIconChar('date') }}</span></th>
+          <th class="sortable" @click="toggleSort('title')">タイトル<span class="sort-icon" :class="sortIconClass('title')">{{ sortIconChar('title') }}</span></th>
+          <th class="sortable" @click="toggleSort('garden')">園名<span class="sort-icon" :class="sortIconClass('garden')">{{ sortIconChar('garden') }}</span></th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="post in posts" :key="post.id">
+        <tr v-for="post in sortedPosts" :key="post.id">
           <td>{{ post.date }}</td>
           <td>{{ post.title }}</td>
           <td>{{ post.garden }}</td>
@@ -40,6 +40,36 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 const { getAll, remove } = useFirestore()
 const posts = ref<any[]>([])
 const loading = ref(true)
+const sortKey = ref('date')
+const sortDir = ref<'asc' | 'desc'>('desc')
+
+const toggleSort = (key: string) => {
+  if (sortKey.value === key) {
+    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortKey.value = key
+    sortDir.value = 'asc'
+  }
+}
+
+const sortIconChar = (key: string) => {
+  if (sortKey.value !== key) return '↕'
+  return sortDir.value === 'asc' ? '↑' : '↓'
+}
+
+const sortIconClass = (key: string) => {
+  if (sortKey.value !== key) return ''
+  return sortDir.value === 'asc' ? 'sort-icon--asc' : 'sort-icon--desc'
+}
+
+const sortedPosts = computed(() => {
+  return [...posts.value].sort((a, b) => {
+    const av = a[sortKey.value] ?? ''
+    const bv = b[sortKey.value] ?? ''
+    const cmp = String(av).localeCompare(String(bv), 'ja')
+    return sortDir.value === 'asc' ? cmp : -cmp
+  })
+})
 
 const load = async () => {
   loading.value = true

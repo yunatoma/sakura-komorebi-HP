@@ -6,6 +6,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  setDoc,
   orderBy,
   query,
   serverTimestamp,
@@ -50,5 +51,11 @@ export const useFirestore = () => {
     await deleteDoc(doc($db as any, collectionName, id))
   }
 
-  return { getAll, getOne, create, update, remove }
+  const set = async (collectionName: string, id: string, data: DocumentData) => {
+    const { $db } = useNuxtApp()
+    const ref = doc($db as any, collectionName, id)
+    await setDoc(ref, { ...data, updatedAt: serverTimestamp() }, { merge: true })
+  }
+
+  return { getAll, getOne, create, update, remove, set }
 }

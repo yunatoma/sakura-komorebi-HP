@@ -93,7 +93,8 @@ defineProps<{
 
 const { elementRef: singleRef, isVisible } = useScrollAnimation(0.05)
 
-const { archive } = useLetterPosts()
+const { archive, loadArchive } = useLetterPosts()
+onMounted(() => loadArchive())
 </script>
 
 <style scoped lang="scss">

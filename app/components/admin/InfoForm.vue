@@ -96,6 +96,8 @@ const removeSection = (i: number) => form.body.splice(i, 1)
 const handleSubmit = () => {
   emit('submit', { ...form }, imageFile.value)
 }
+
+defineExpose({ form, previewUrl })
 </script>
 
 <style scoped lang="scss">
