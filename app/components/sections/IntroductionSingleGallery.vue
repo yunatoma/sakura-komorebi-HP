@@ -1,9 +1,9 @@
 <template>
-  <section class="single-gallery">
+  <section ref="sectionRef" class="single-gallery">
     <div class="single-gallery__border single-gallery__border--top"></div>
 
     <!-- Camera icon straddling top border -->
-    <div class="single-gallery__icon-wrap">
+    <div class="single-gallery__icon-wrap" :class="{ 'is-visible': isVisible }">
       <div class="single-gallery__icon-circle">
         <svg class="single-gallery__icon-svg" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M14 4L11 8H4C2.9 8 2 8.9 2 10V28C2 29.1 2.9 30 4 30H36C37.1 30 38 29.1 38 28V10C38 8.9 37.1 8 36 8H29L26 4H14Z" fill="#6B1A2A"/>
@@ -14,11 +14,11 @@
     </div>
 
     <div class="single-gallery__inner">
-      <h2 class="single-gallery__heading">園の様子</h2>
-      <p class="single-gallery__en">Inside</p>
+      <h2 class="single-gallery__heading" :class="{ 'is-visible': isVisible }">園の様子</h2>
+      <p class="single-gallery__en" :class="{ 'is-visible': isVisible }">Inside</p>
 
       <!-- Infinite scroll track -->
-      <div class="single-gallery__viewport">
+      <div class="single-gallery__viewport" :class="{ 'is-visible': isVisible }">
         <div class="single-gallery__track">
           <ul class="single-gallery__list" aria-label="園の様子">
             <li v-for="img in images" :key="img.src" class="single-gallery__item">
@@ -39,12 +39,20 @@
 </template>
 
 <script setup lang="ts">
+import { useScrollAnimation } from '~/composables/useScrollAnimation'
+
 const props = defineProps<{ images: { src: string; alt: string }[] }>()
+const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
 </script>
 
 <style scoped lang="scss">
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -92,6 +100,11 @@ const props = defineProps<{ images: { src: string; alt: string }[] }>()
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
   }
 
   &__icon-circle {
@@ -133,6 +146,11 @@ const props = defineProps<{ images: { src: string; alt: string }[] }>()
     letter-spacing: 0.1em;
     color: $color-dark-red;
     margin-bottom: 8px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.25s both;
+    }
   }
 
   &__en {
@@ -142,6 +160,11 @@ const props = defineProps<{ images: { src: string; alt: string }[] }>()
     letter-spacing: 0.2em;
     color: $color-dark-red;
     margin-bottom: 40px;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.35s both;
+    }
 
     @include sp {
       margin-bottom: 28px;
@@ -153,6 +176,11 @@ const props = defineProps<{ images: { src: string; alt: string }[] }>()
     overflow: hidden;
     width: 100%;
     padding: 32px 0;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.7s ease 0.5s both;
+    }
 
     @include sp {
       padding: 24px 0;

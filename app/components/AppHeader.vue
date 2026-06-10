@@ -154,9 +154,21 @@ const rightNavItems = [
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
 
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .header {
   position: relative;
   z-index: 200;
+  animation: headerFadeIn 0.7s ease both;
   background-image: url('/images/header.svg');
   background-size: 100% auto;
   background-repeat: no-repeat;

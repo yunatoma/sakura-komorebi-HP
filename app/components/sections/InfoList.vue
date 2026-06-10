@@ -1,5 +1,5 @@
 <template>
-  <section class="info-list">
+  <section ref="sectionRef" class="info-list">
     <!-- 装飾 -->
     <div class="info-list__deco info-list__deco--blob-right" aria-hidden="true"></div>
     <div class="info-list__deco info-list__deco--blob-bottom" aria-hidden="true"></div>
@@ -8,10 +8,11 @@
       <!-- フィルタータブ -->
       <div class="info-list__tabs" role="tablist" aria-label="カテゴリフィルター">
         <button
-          v-for="tab in tabs"
+          v-for="(tab, i) in tabs"
           :key="tab.key"
           class="info-list__tab"
-          :class="{ 'info-list__tab--active': activeTab === tab.key }"
+          :class="{ 'info-list__tab--active': activeTab === tab.key, 'is-visible': isVisible }"
+          :style="{ animationDelay: `${0.1 + i * 0.07}s` }"
           role="tab"
           :aria-selected="activeTab === tab.key"
           @click="setTab(tab.key)"
@@ -23,9 +24,11 @@
       <!-- ニュース一覧 -->
       <ul class="info-list__list">
         <li
-          v-for="item in paginatedItems"
+          v-for="(item, i) in paginatedItems"
           :key="item.id"
           class="info-list__item"
+          :class="{ 'is-visible': isVisible }"
+          :style="{ animationDelay: `${0.3 + i * 0.07}s` }"
         >
           <NuxtLink :to="`/info/${item.id}`" class="info-list__item-link">
             <div class="info-list__badge" :class="`info-list__badge--${item.category}`">
@@ -97,6 +100,9 @@
 
 <script setup lang="ts">
 import type { InfoPost } from '~/composables/useInfoPosts'
+import { useScrollAnimation } from '~/composables/useScrollAnimation'
+const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.05)
+
 const activeTab = ref<string>('all')
 const currentPage = ref(1)
 const itemsPerPage = 9
@@ -160,6 +166,11 @@ function categoryLabel(category: string) {
 <style scoped lang="scss">
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 // カテゴリーカラー
 $color-news: #EF8F9C;
@@ -244,6 +255,11 @@ $color-media: #F5C842;
     font-size: 14px;
     letter-spacing: 0.1em;
     color: $color-pink;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.5s ease both;
+    }
     background: transparent;
     border: 2px solid $color-pink;
     border-radius: 12px;
@@ -277,6 +293,11 @@ $color-media: #F5C842;
 
   &__item {
     border-bottom: 1px solid rgba($color-pink, 0.5);
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.5s ease both;
+    }
 
     &:first-child {
       border-top: 1px solid rgba($color-pink, 0.5);

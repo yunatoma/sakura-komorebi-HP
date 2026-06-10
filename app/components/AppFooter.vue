@@ -1,13 +1,13 @@
 <template>
-  <footer class="footer">
+  <footer ref="footerRef" class="footer">
     <div class="footer__inner">
       <!-- ロゴ -->
-      <NuxtLink to="/" class="footer__logo">
+      <NuxtLink to="/" class="footer__logo" :class="{ 'is-visible': isVisible }">
         <img src="/images/logo.svg" alt="桜のこもれびキッズランド" width="240" height="71" />
       </NuxtLink>
 
       <!-- メインナビ -->
-      <nav class="footer__nav">
+      <nav class="footer__nav" :class="{ 'is-visible': isVisible }">
         <ul class="footer__nav-list">
           <li v-for="item in mainNavItems" :key="item.path">
             <NuxtLink :to="item.path" class="footer__nav-link">{{ item.label }}</NuxtLink>
@@ -16,7 +16,7 @@
       </nav>
 
       <!-- サブナビ -->
-      <nav class="footer__sub-nav">
+      <nav class="footer__sub-nav" :class="{ 'is-visible': isVisible }">
         <ul class="footer__sub-nav-list">
           <li v-for="item in subNavItems" :key="item.path">
             <NuxtLink :to="item.path" class="footer__sub-nav-link">{{ item.label }}</NuxtLink>
@@ -25,7 +25,7 @@
       </nav>
 
       <!-- コピーライト -->
-      <p class="footer__copy">
+      <p class="footer__copy" :class="{ 'is-visible': isVisible }">
         <small>©桜のこもれびキッズランド All Rights Reserved.</small>
       </p>
     </div>
@@ -33,6 +33,10 @@
 </template>
 
 <script setup lang="ts">
+import { useScrollAnimation } from '~/composables/useScrollAnimation'
+
+const { elementRef: footerRef, isVisible } = useScrollAnimation(0.1)
+
 const mainNavItems = [
   { label: '私たちのこと', path: '/about' },
   { label: '各園のご紹介', path: '/introduction' },
@@ -53,6 +57,11 @@ const subNavItems = [
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .footer {
   position: relative;
   background: linear-gradient(to bottom, #FFFEF3 0%, #FFF7B8 100%);
@@ -72,7 +81,12 @@ const subNavItems = [
   }
 
   &__logo {
+    opacity: 0;
     transition: opacity 0.2s;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
 
     &:hover {
       opacity: 0.8;
@@ -84,6 +98,14 @@ const subNavItems = [
       height: 70.86px;
       object-fit: contain;
       display: block;
+    }
+  }
+
+  &__nav {
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.25s both;
     }
   }
 
@@ -114,6 +136,14 @@ const subNavItems = [
     }
   }
 
+  &__sub-nav {
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.4s both;
+    }
+  }
+
   &__sub-nav-list {
     display: flex;
     justify-content: center;
@@ -138,6 +168,11 @@ const subNavItems = [
 
   &__copy {
     font-family: $font-jost;
+    opacity: 0;
+
+    &.is-visible {
+      animation: fadeInUp 0.6s ease 0.55s both;
+    }
     font-size: 12px;
     color: $color-dark-red;
     letter-spacing: 0.06em;
