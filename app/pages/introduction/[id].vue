@@ -1,11 +1,11 @@
 <template>
-  <main class="letter">
+  <main class="introduction-detail">
     <!-- Page heading -->
     <section class="page-heading">
       <div class="page-heading__bg">
         <div class="page-heading__inner">
-          <h1 class="page-heading__title">こもれびだより</h1>
-          <p class="page-heading__en">Letter</p>
+          <h1 class="page-heading__title">各園のご紹介</h1>
+          <p class="page-heading__en">Introduction</p>
         </div>
       </div>
       <nav class="page-heading__breadcrumb" aria-label="パンくずリスト">
@@ -16,21 +16,43 @@
             </li>
             <li class="page-heading__breadcrumb-item">
               <span class="page-heading__breadcrumb-sep" aria-hidden="true">›</span>
-              <span class="page-heading__breadcrumb-current">こもれびだより</span>
+              <NuxtLink to="/introduction" class="page-heading__breadcrumb-link">各園のご紹介</NuxtLink>
+            </li>
+            <li v-if="garden" class="page-heading__breadcrumb-item">
+              <span class="page-heading__breadcrumb-sep" aria-hidden="true">›</span>
+              <span class="page-heading__breadcrumb-current">{{ garden.name }}</span>
             </li>
           </ol>
         </div>
       </nav>
     </section>
 
-    <SectionsIntroductionSingleLocation />
-    <SectionsIntroductionSingleGallery />
-    <SectionsIntroductionSingleMessage />
-    <SectionsIntroductionSingleInfo />
-    <SectionsTopLetters :limit="3" />
-    <SectionsAboutContact />
+    <template v-if="garden">
+      <SectionsIntroductionSingleLocation
+        :img="garden.location.img"
+        :heading="garden.location.heading"
+        :text="garden.location.text"
+      />
+      <SectionsIntroductionSingleGallery :images="garden.gallery" />
+      <SectionsIntroductionSingleMessage :img="garden.message.img" :text="garden.message.text" />
+      <SectionsIntroductionSingleInfo :info="garden.info" />
+      <SectionsTopLetters :limit="3" :garden-name="garden.name" />
+    </template>
+
+    <div v-else class="introduction-detail__not-found">
+      <p>園が見つかりませんでした。</p>
+      <NuxtLink to="/introduction">一覧に戻る</NuxtLink>
+    </div>
   </main>
 </template>
+
+<script setup lang="ts">
+const route = useRoute()
+const { getGardenById } = useGardens()
+
+const id = Number(route.params.id)
+const garden = getGardenById(id)
+</script>
 
 <style scoped lang="scss">
 @use '~/assets/styles/variables' as *;
@@ -64,6 +86,7 @@
     font-size: 32px;
     color: $color-dark-red;
     letter-spacing: 0.12em;
+    margin-bottom: 4px;
 
     @include sp {
       font-size: 22px;
@@ -73,10 +96,10 @@
   &__en {
     font-family: $font-jost;
     font-weight: 900;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.2em;
     color: $color-dark-red;
-    margin-top: 6px;
+    line-height: 1;
   }
 
   &__breadcrumb {
@@ -100,6 +123,7 @@
   &__breadcrumb-list {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 6px;
     list-style: none;
   }
@@ -110,13 +134,13 @@
     gap: 6px;
     font-family: $font-kosugi;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: $color-text;
 
     @include sp {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 
@@ -138,6 +162,24 @@
 
   &__breadcrumb-current {
     color: $color-text;
+  }
+}
+
+.introduction-detail {
+  &__not-found {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 80px 60px;
+    text-align: center;
+    font-family: $font-kosugi;
+    font-size: 16px;
+    color: $color-text;
+
+    a {
+      color: $color-dark-red;
+      margin-top: 16px;
+      display: inline-block;
+    }
   }
 }
 </style>

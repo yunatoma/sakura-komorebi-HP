@@ -23,26 +23,26 @@
         <!-- 所在地 -->
         <div class="nursery-info__row">
           <div class="nursery-info__label">所在地</div>
-          <div class="nursery-info__value">東京都渋谷区渋谷〇-〇-〇</div>
+          <div class="nursery-info__value">{{ info.address }}</div>
         </div>
 
         <!-- TEL / FAX -->
         <div class="nursery-info__row">
           <div class="nursery-info__label">TEL / FAX</div>
-          <div class="nursery-info__value">0120-107-929 / 0120-107-929</div>
+          <div class="nursery-info__value">{{ info.tel }} / {{ info.fax }}</div>
         </div>
 
         <!-- 対象 -->
         <div class="nursery-info__row">
           <div class="nursery-info__label">対象</div>
-          <div class="nursery-info__value">１歳児から小学校就学前までの乳幼児（１歳児〜5歳児）</div>
+          <div class="nursery-info__value">{{ info.target }}</div>
         </div>
 
         <!-- 入園日 -->
         <div class="nursery-info__row">
           <div class="nursery-info__label">入園日</div>
           <div class="nursery-info__value">
-            原則として毎月1日<br />
+            {{ info.enrollmentDate }}<br />
             初回は見学になります。<br />
             他の保護者や園児及び職員との三密対応及び保育園の日程により、見学日時に制限がある場合がございます。ご理解のうえ、ご連絡願います。
           </div>
@@ -53,10 +53,10 @@
           <div class="nursery-info__label">開園日</div>
           <div class="nursery-info__value">
             <div class="nursery-info__week-grid">
-              <span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span>
-              <span>○</span><span>○</span><span>○</span><span>○</span><span>○</span><span>○</span><span>ー</span>
+              <span v-for="d in ['月','火','水','木','金','土','日']" :key="d">{{ d }}</span>
+              <span v-for="(open, i) in info.openDays" :key="i">{{ open ? '○' : 'ー' }}</span>
             </div>
-            月曜日〜土曜日（日曜日、祝日・休日、年末年始（12/29〜1/3）はお休み）
+            {{ info.openDaysNote }}
           </div>
         </div>
 
@@ -67,27 +67,15 @@
             <p class="nursery-info__sublabel">保育標準時間認定の方</p>
             <table class="nursery-info__subtable">
               <tbody>
-                <tr>
-                  <th>保育標準時間</th>
-                  <td>7：30〜18：30</td>
-                </tr>
-                <tr>
-                  <th>延長保育</th>
-                  <td>18：31〜19：30</td>
-                </tr>
+                <tr><th>保育標準時間</th><td>{{ info.hoursStandard }}</td></tr>
+                <tr><th>延長保育</th><td>{{ info.hoursStandardExtended }}</td></tr>
               </tbody>
             </table>
             <p class="nursery-info__sublabel nursery-info__sublabel--mt">保育短時間認定の方</p>
             <table class="nursery-info__subtable">
               <tbody>
-                <tr>
-                  <th>保育標準時間</th>
-                  <td>9：00〜17：00</td>
-                </tr>
-                <tr>
-                  <th>延長保育</th>
-                  <td>7：30〜8：59<br />17：01〜19：30</td>
-                </tr>
+                <tr><th>保育標準時間</th><td>{{ info.hoursShort }}</td></tr>
+                <tr><th>延長保育</th><td>{{ info.hoursShortExtended }}</td></tr>
               </tbody>
             </table>
           </div>
@@ -100,16 +88,15 @@
             <div class="nursery-info__staff-layout">
               <div class="nursery-info__badge">
                 <span class="nursery-info__badge-label">定員</span>
-                <span class="nursery-info__badge-num">51名</span>
+                <span class="nursery-info__badge-num">{{ info.capacityTotal }}名</span>
               </div>
               <div>
-                <div class="nursery-info__age-grid">
-                  <span>1歳児</span><span>2歳児</span><span>3歳児</span><span>4歳児</span><span>5歳児</span>
-                  <span>18名</span><span>18名</span><span>5名</span><span>5名</span><span>5名</span>
+                <div class="nursery-info__age-grid" :style="`grid-template-columns: repeat(${info.capacityAges.length}, auto)`">
+                  <span v-for="a in info.capacityAges" :key="a.age">{{ a.age }}</span>
+                  <span v-for="a in info.capacityAges" :key="a.age + '-count'">{{ a.count }}名</span>
                 </div>
               </div>
             </div>
-            <p class="nursery-info__note">※定員は、開園初年度から数年をかけて102名の定員に変更していきます。</p>
           </div>
         </div>
 
@@ -119,19 +106,17 @@
           <div class="nursery-info__value">
             <div class="nursery-info__staff-layout">
               <div class="nursery-info__badge">
-                <span class="nursery-info__badge-label">定員</span>
-                <span class="nursery-info__badge-num">13名以上</span>
+                <span class="nursery-info__badge-label">職員</span>
+                <span class="nursery-info__badge-num">{{ info.staffTotal }}</span>
               </div>
               <div>
-                <div class="nursery-info__staff-grid">
-                  <span>園長</span><span>保育士</span><span>調理師</span><span>看護師</span><span>事務員</span>
-                  <span>1名</span><span>8名</span><span>2名</span><span>1名</span><span>1名</span>
+                <div class="nursery-info__staff-grid" :style="`grid-template-columns: repeat(${info.staffRoles.length}, auto)`">
+                  <span v-for="r in info.staffRoles" :key="r.role">{{ r.role }}</span>
+                  <span v-for="r in info.staffRoles" :key="r.role + '-count'">{{ r.count }}</span>
                 </div>
               </div>
             </div>
-            <p class="nursery-info__note">※嘱託医　1名</p>
-            <p class="nursery-info__note">※保育士は認可保育所の基準に準じます</p>
-            <p class="nursery-info__note">※保育児童数・年齢に応じたシフトにより、職員を増減します</p>
+            <p v-for="note in info.staffNotes" :key="note" class="nursery-info__note">{{ note }}</p>
           </div>
         </div>
 
@@ -142,6 +127,9 @@
 
 <script setup lang="ts">
 import { useScrollAnimation } from '~/composables/useScrollAnimation'
+import type { GardenInfo } from '~/composables/useGardens'
+
+defineProps<{ info: GardenInfo }>()
 
 const { elementRef: sectionRef, isVisible } = useScrollAnimation(0.1)
 </script>

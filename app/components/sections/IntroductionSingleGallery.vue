@@ -39,14 +39,7 @@
 </template>
 
 <script setup lang="ts">
-const images = [
-  { src: '/images/garden-musashino.webp', alt: '園の様子1' },
-  { src: '/images/garden-machida.webp', alt: '園の様子2' },
-  { src: '/images/garden-fujisawa.webp', alt: '園の様子3' },
-  { src: '/images/garden-gallery-05.webp', alt: '園の様子4' },
-  { src: '/images/garden-sapporo.webp', alt: '園の様子5' },
-  { src: '/images/garden-osaka.webp', alt: '園の様子6' },
-]
+const props = defineProps<{ images: { src: string; alt: string }[] }>()
 </script>
 
 <style scoped lang="scss">

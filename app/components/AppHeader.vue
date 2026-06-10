@@ -123,7 +123,7 @@ const leftNavItems = [
   {
     label: 'こもれびだより',
     en: 'Letter',
-    path: '/letter',
+    path: '/letter-list',
     icon: '/images/nav-icon-letter.svg',
   },
 ]

@@ -36,7 +36,7 @@
 const mainNavItems = [
   { label: '私たちのこと', path: '/about' },
   { label: '各園のご紹介', path: '/introduction' },
-  { label: 'こもれびだより', path: '/letter' },
+  { label: 'こもれびだより', path: '/letter-list' },
   { label: '採用情報', path: '/recruit' },
   { label: 'お知らせ', path: '/info' },
   { label: 'お問い合わせ', path: '/contact' },

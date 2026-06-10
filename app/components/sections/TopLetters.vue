@@ -48,12 +48,18 @@
 <script setup lang="ts">
 import { useScrollAnimation } from '~/composables/useScrollAnimation'
 
-const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 0 })
+const props = withDefaults(defineProps<{ limit?: number; gardenName?: string }>(), { limit: 0, gardenName: '' })
 
 const { elementRef: lettersRef, isVisible } = useScrollAnimation(0.1)
 
 const { allPosts } = useLetterPosts()
-const posts = computed(() => props.limit > 0 ? allPosts.slice(0, props.limit) : allPosts)
+const posts = computed(() => {
+  const n = props.limit > 0 ? props.limit : allPosts.length
+  if (!props.gardenName) return allPosts.slice(0, n)
+  const matched = allPosts.filter(p => p.garden === props.gardenName)
+  const others = allPosts.filter(p => p.garden !== props.gardenName)
+  return [...matched, ...others].slice(0, n)
+})
 </script>
 
 <style scoped lang="scss">

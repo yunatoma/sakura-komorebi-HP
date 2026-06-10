@@ -64,7 +64,7 @@
             :class="{ 'is-visible': isVisible }"
             :style="{ animationDelay: `${0.1 + i * 0.05}s` }"
           >
-            <a href="#" class="intro-list__item-link">
+            <NuxtLink :to="`/introduction/${garden.id}`" class="intro-list__item-link">
               <div class="intro-list__item-photo">
                 <img :src="garden.img" :alt="garden.name" class="intro-list__item-img" loading="lazy" />
               </div>
@@ -73,7 +73,7 @@
                 <span class="intro-list__item-tag">{{ garden.prefecture }}</span>
               </div>
               <p class="intro-list__item-name">{{ garden.name }}</p>
-            </a>
+            </NuxtLink>
           </li>
         </ul>
 
@@ -106,39 +106,27 @@ const emit = defineEmits<{ 'tab-change': [label: string] }>()
 
 const { elementRef: listRef, isVisible } = useScrollAnimation(0.05)
 
+const route = useRoute()
+
 const activeTab = ref<'type' | 'pref'>('type')
 
 const gardenTypes = ['認定保育所', '小規模保育所', '小規模保育事業A型'] as const
 type GardenType = typeof gardenTypes[number]
 const activeType = ref<GardenType>('認定保育所')
 
-const allGardens = [
-  // 認定保育所 (12件)
-  { id: 1,  name: 'しぶや園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/nenkan-entrance-ceremony.webp' },
-  { id: 2,  name: 'しんじゅく園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/nenkan-halloween.webp' },
-  { id: 3,  name: 'あかばね園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/no-image.webp' },
-  { id: 4,  name: 'よこはま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-yokohama.webp' },
-  { id: 5,  name: 'さがみはら園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-sagamihara.webp' },
-  { id: 6,  name: 'かまくら園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-kamakura.webp' },
-  { id: 7,  name: 'さいたま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '埼玉県',   img: '/images/garden-saitama.webp' },
-  { id: 8,  name: 'ちば園',       typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '千葉県',   img: '/images/no-image.webp' },
-  { id: 9,  name: 'さっぽろ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '北海道',   img: '/images/garden-sapporo.webp' },
-  { id: 10, name: 'むさしの園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/garden-musashino.webp' },
-  { id: 11, name: 'まちだ園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/garden-machida.webp' },
-  { id: 12, name: 'ふじさわ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-fujisawa.webp' },
-  // 小規模保育所 (4件)
-  { id: 13, name: 'なごや園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '愛知県',   img: '/images/garden-nagoya.webp' },
-  { id: 14, name: 'おおさか園',   typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '大阪府',   img: '/images/garden-osaka.webp' },
-  { id: 15, name: 'こうべ園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '兵庫県',   img: '/images/garden-kobe.webp' },
-  { id: 16, name: 'きゅうしゅう園', typeCategory: '小規模保育所',   type: '小規模保育所',       prefecture: '福岡県',   img: '/images/letter-hiroshima.webp' },
-  // 小規模保育事業A型 (3件)
-  { id: 17, name: 'かわさき園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '神奈川県', img: '/images/nenkan-sports-day.webp' },
-  { id: 18, name: 'なら園',       typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '奈良県',   img: '/images/nenkan-excursion.webp' },
-  { id: 19, name: 'おきなわ園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '沖縄県',   img: '/images/fv-children.webp' },
-]
+const { allGardens } = useGardens()
 
 const prefectures = computed(() => [...new Set(allGardens.map(g => g.prefecture))])
 const activePref = ref(prefectures.value[0])
+
+onMounted(() => {
+  const prefQuery = route.query.pref as string | undefined
+  if (prefQuery && prefectures.value.includes(prefQuery)) {
+    activeTab.value = 'pref'
+    activePref.value = prefQuery
+    emit('tab-change', '都道府県から探す')
+  }
+})
 
 const perPage = 9
 const currentPage = ref(1)

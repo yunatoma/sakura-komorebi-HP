@@ -72,7 +72,7 @@ const leftItems = [
   { label: 'TOP', path: '/' },
   { label: 'わたしたちのこと', path: '/about' },
   { label: '各園のご紹介', path: '/introduction' },
-  { label: 'こもれびだより', path: '/letter' },
+  { label: 'こもれびだより', path: '/letter-list' },
   { label: 'お知らせ', path: '/info' },
 ]
 

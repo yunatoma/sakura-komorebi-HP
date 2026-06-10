@@ -25,16 +25,16 @@
       <!-- Prefecture grid -->
       <ul class="introduction__grid" :class="{ 'is-visible': isVisible }">
         <li v-for="pref in prefectures" :key="pref" class="introduction__item">
-          <a href="#" class="introduction__link">{{ pref }}</a>
+          <NuxtLink :to="`/introduction?pref=${encodeURIComponent(pref)}`" class="introduction__link">{{ pref }}</NuxtLink>
         </li>
       </ul>
 
       <!-- CTA button -->
       <div class="introduction__cta" :class="{ 'is-visible': isVisible }">
-        <a href="#" class="introduction__btn">
+        <NuxtLink to="/introduction" class="introduction__btn">
           一覧ページへ
           <span class="introduction__btn-arrow">›</span>
-        </a>
+        </NuxtLink>
       </div>
     </div>
 
