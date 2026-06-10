@@ -1,12 +1,13 @@
 <template>
-  <section class="fv" ref="fvRef">
+  <section class="fv">
     <div class="fv__inner">
       <!-- Main photo (角丸、中央配置) -->
       <div class="fv__photo-wrap">
         <img
-          src="/images/ANJU16040317IMG_1087_TP_V1.webp"
+          src="/images/fv-children.webp"
           class="fv__photo"
           alt="子どもたちの笑顔"
+          loading="eager"
         />
       </div>
 
@@ -74,10 +75,10 @@ function formatDate(date: string) {
 
   // ---- 写真 (角丸・中央配置) ----
   &__photo-wrap {
+    position: relative;
     border-radius: 24px;
     overflow: hidden;
     height: 540px;
-    max-height: 540px;
     width: 100%;
 
     @include sp {
@@ -87,6 +88,8 @@ function formatDate(date: string) {
   }
 
   &__photo {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -107,7 +110,7 @@ function formatDate(date: string) {
     transform: translateY(-50%);
     width: 48%;
     aspect-ratio: 1 / 1.05;
-    background-image: url('/images/Vector.webp');
+    background-image: url('/images/fv-blob.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

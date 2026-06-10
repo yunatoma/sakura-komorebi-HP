@@ -60,7 +60,7 @@ const { elementRef: contactRef, isVisible } = useScrollAnimation(0.1)
   min-height: 480px;
   display: flex;
   align-items: center;
-  background: url('/images/gautam-arora-K8yhW1BWWpk-unsplash.webp') center center / cover no-repeat;
+  background: url('/images/garden-yokohama.webp') center center / cover no-repeat;
 
   @include sp {
     min-height: 400px;

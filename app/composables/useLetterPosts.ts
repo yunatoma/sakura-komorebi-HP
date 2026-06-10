@@ -18,7 +18,7 @@ export const useLetterPosts = () => {
   const allPosts: LetterPost[] = [
     {
       id: 1,
-      image: '/images/erik-o990dFLgo1Q-unsplash.webp',
+      image: '/images/letter-naha.webp',
       garden: 'なは園',
       title: 'なは園からのおたより',
       excerpt: '年長さんクラス、美ら海水族館に遠足に行きました！',
@@ -43,7 +43,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 2,
-      image: '/images/massimo-adami-GYdtY0fR4CM-unsplash.webp',
+      image: '/images/letter-hiroshima.webp',
       garden: 'ひろしま園',
       title: 'ひろしま園からのおたより',
       excerpt: '年少さん、ピクニックへ♪',
@@ -68,7 +68,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 3,
-      image: '/images/erika-fletcher-YfNWGrQI3a4-unsplash.webp',
+      image: '/images/letter-shinjuku-drawing.webp',
       garden: 'しんじゅく園',
       title: 'しんじゅく園からのおたより',
       excerpt: '年少さんクラス、お絵描き会',
@@ -93,7 +93,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 4,
-      image: '/images/jason-sung-xH04gkmk1sg-unsplash.webp',
+      image: '/images/garden-nagoya.webp',
       garden: 'しぶや園',
       title: 'しぶや園からのおたより',
       excerpt: 'しぶや園の日常',
@@ -118,7 +118,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 5,
-      image: '/images/jerry-wang-KV9F7Ypl2N0-unsplash.webp',
+      image: '/images/letter-osaka.webp',
       garden: 'おおさか園',
       title: 'おおさか園からのおたより',
       excerpt: 'ローマ字のお勉強',
@@ -143,7 +143,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 6,
-      image: '/images/jerry-wang-Lxn5XUu_mZ8-unsplash.webp',
+      image: '/images/garden-sagamihara.webp',
       garden: 'よこはま園',
       title: 'よこはま園からのおたより',
       excerpt: '年長さんクラス、科学博物館に遠足！',
@@ -168,7 +168,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 7,
-      image: '/images/gautam-arora-K8yhW1BWWpk-unsplash.webp',
+      image: '/images/garden-yokohama.webp',
       garden: 'なは園',
       title: 'なは園からのおたより',
       excerpt: '秋の収穫体験、さつまいも掘りに行きました',
@@ -193,7 +193,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 8,
-      image: '/images/jackie-park-3SBfM2-ytb8-unsplash 1.webp',
+      image: '/images/letter-shinjuku-sports.webp',
       garden: 'しんじゅく園',
       title: 'しんじゅく園からのおたより',
       excerpt: '運動会、みんな頑張りました！',
@@ -218,7 +218,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 9,
-      image: '/images/mi-pham-FtZL0r4DZYk-unsplash.webp',
+      image: '/images/garden-kobe.webp',
       garden: 'ひろしま園',
       title: 'ひろしま園からのおたより',
       excerpt: 'たなばた会、笹に願いを込めて',
@@ -243,7 +243,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 10,
-      image: '/images/hoylee-song-RcTuIWPwwmo-unsplash.webp',
+      image: '/images/garden-osaka.webp',
       garden: 'きゅうしゅう園',
       title: 'きゅうしゅう園からのおたより',
       excerpt: '春の遠足、公園で楽しく遊びました',
@@ -268,7 +268,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 11,
-      image: '/images/silvana-carlos-PiZdDvRG3M8-unsplash.webp',
+      image: '/images/nenkan-halloween.webp',
       garden: 'しんじゅく園',
       title: 'しんじゅく園からのおたより',
       excerpt: '絵の具あそび、みんな楽しんでいます',
@@ -293,7 +293,7 @@ export const useLetterPosts = () => {
     },
     {
       id: 12,
-      image: '/images/zhenzhong-liu-kFmaqeOF-PQ-unsplash 1.webp',
+      image: '/images/nenkan-entrance-ceremony.webp',
       garden: 'しぶや園',
       title: 'しぶや園からのおたより',
       excerpt: '新年度スタート！入園式の様子',

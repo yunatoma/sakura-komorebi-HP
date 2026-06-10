@@ -47,7 +47,7 @@
 
         <div class="not-found__sitemap-logo-wrap">
           <div class="not-found__sitemap-logo-circle">
-            <img src="/images/Mask group.svg" alt="" class="not-found__sitemap-logo-img" />
+            <img src="/images/icon-logo-mark.svg" alt="" class="not-found__sitemap-logo-img" />
           </div>
         </div>
 

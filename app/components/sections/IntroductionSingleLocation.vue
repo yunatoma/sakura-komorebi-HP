@@ -3,7 +3,7 @@
     <div class="single-location__inner">
       <div class="single-location__image-wrap" :class="{ 'is-visible': isVisible }">
         <img
-          src="/images/Rectangle 31.webp"
+          src="/images/garden-saitama.webp"
           alt="渋谷駅から徒歩2分の立地"
           class="single-location__image"
           loading="lazy"

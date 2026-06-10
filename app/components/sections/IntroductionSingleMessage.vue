@@ -4,7 +4,7 @@
       <!-- Icon -->
       <div class="single-message__icon-wrap" :class="{ 'is-visible': isVisible }">
         <div class="single-message__icon-circle">
-          <img src="/images/Mask group-10.svg" alt="" class="single-message__icon-img" />
+          <img src="/images/nav-icon-single-message.svg" alt="" class="single-message__icon-img" />
         </div>
       </div>
 
@@ -16,7 +16,7 @@
       <div class="single-message__content" :class="{ 'is-visible': isVisible }">
         <div class="single-message__image-wrap">
           <img
-            src="/images/Rectangle 38.webp"
+            src="/images/garden-single-message.webp"
             alt="園長からのメッセージ"
             class="single-message__image"
             loading="lazy"

@@ -112,19 +112,19 @@ const leftNavItems = [
     label: 'わたしたちのこと',
     en: 'About',
     path: '/about',
-    icon: '/images/Mask group-3.svg',
+    icon: '/images/nav-icon-about.svg',
   },
   {
     label: '各園のご紹介',
     en: 'Introduction',
     path: '/introduction',
-    icon: '/images/Mask group-5.svg',
+    icon: '/images/nav-icon-introduction.svg',
   },
   {
     label: 'こもれびだより',
     en: 'Letter',
     path: '/letter',
-    icon: '/images/Mask group-6.svg',
+    icon: '/images/nav-icon-letter.svg',
   },
 ]
 
@@ -133,19 +133,19 @@ const rightNavItems = [
     label: 'お知らせ',
     en: 'Info',
     path: '/info',
-    icon: '/images/Mask group-7.svg',
+    icon: '/images/nav-icon-info.svg',
   },
   {
     label: '採用情報',
     en: 'Recruit',
     path: '/recruit',
-    icon: '/images/Mask group-8.svg',
+    icon: '/images/nav-icon-recruit.svg',
   },
   {
     label: 'お問い合わせ',
     en: 'Contact',
     path: '/contact',
-    icon: '/images/Mask group-9.svg',
+    icon: '/images/nav-icon-contact.svg',
   },
 ]
 </script>

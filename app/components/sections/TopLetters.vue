@@ -6,7 +6,7 @@
     <div class="letters__logo-wrap">
       <div class="letters__logo" :class="{ 'is-visible': isVisible }">
         <div class="letters__logo-circle">
-          <img src="/images/Mask group-6.svg" alt="" class="letters__logo-img" />
+          <img src="/images/nav-icon-letter.svg" alt="" class="letters__logo-img" />
         </div>
       </div>
     </div>

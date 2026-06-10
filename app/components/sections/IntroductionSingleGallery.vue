@@ -40,12 +40,12 @@
 
 <script setup lang="ts">
 const images = [
-  { src: '/images/Rectangle 32.webp', alt: '園の様子1' },
-  { src: '/images/Rectangle 33.webp', alt: '園の様子2' },
-  { src: '/images/Rectangle 34.webp', alt: '園の様子3' },
-  { src: '/images/Rectangle 35.webp', alt: '園の様子4' },
-  { src: '/images/Rectangle 37.webp', alt: '園の様子5' },
-  { src: '/images/hoylee-song-RcTuIWPwwmo-unsplash.webp', alt: '園の様子6' },
+  { src: '/images/garden-musashino.webp', alt: '園の様子1' },
+  { src: '/images/garden-machida.webp', alt: '園の様子2' },
+  { src: '/images/garden-fujisawa.webp', alt: '園の様子3' },
+  { src: '/images/garden-gallery-05.webp', alt: '園の様子4' },
+  { src: '/images/garden-sapporo.webp', alt: '園の様子5' },
+  { src: '/images/garden-osaka.webp', alt: '園の様子6' },
 ]
 </script>
 

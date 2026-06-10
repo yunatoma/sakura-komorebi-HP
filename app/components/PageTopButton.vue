@@ -6,7 +6,7 @@
       aria-label="ページトップへ戻る"
       @click="scrollToTop"
     >
-      <img src="/images/chevron-right-solid 3.svg" class="page-top__icon" alt="" aria-hidden="true" />
+      <img src="/images/icon-chevron-up.svg" class="page-top__icon" alt="" aria-hidden="true" />
     </button>
   </Transition>
 </template>

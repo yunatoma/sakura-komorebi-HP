@@ -7,7 +7,7 @@
     <div class="intro-list__icon-wrap">
       <div class="intro-list__icon" :class="{ 'is-visible': isVisible }">
         <div class="intro-list__icon-circle">
-          <img src="/images/Mask group-4.svg" alt="" class="intro-list__icon-svg" />
+          <img src="/images/nav-icon-introduction-list.svg" alt="" class="intro-list__icon-svg" />
         </div>
       </div>
     </div>
@@ -114,27 +114,27 @@ const activeType = ref<GardenType>('認定保育所')
 
 const allGardens = [
   // 認定保育所 (12件)
-  { id: 1,  name: 'しぶや園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/zhenzhong-liu-kFmaqeOF-PQ-unsplash 1.webp' },
-  { id: 2,  name: 'しんじゅく園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/silvana-carlos-PiZdDvRG3M8-unsplash.webp' },
+  { id: 1,  name: 'しぶや園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/nenkan-entrance-ceremony.webp' },
+  { id: 2,  name: 'しんじゅく園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/nenkan-halloween.webp' },
   { id: 3,  name: 'あかばね園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/no-image.webp' },
-  { id: 4,  name: 'よこはま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/gautam-arora-K8yhW1BWWpk-unsplash.webp' },
-  { id: 5,  name: 'さがみはら園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/jerry-wang-Lxn5XUu_mZ8-unsplash.webp' },
-  { id: 6,  name: 'かまくら園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/Rectangle 19.webp' },
-  { id: 7,  name: 'さいたま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '埼玉県',   img: '/images/Rectangle 31.webp' },
+  { id: 4,  name: 'よこはま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-yokohama.webp' },
+  { id: 5,  name: 'さがみはら園', typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-sagamihara.webp' },
+  { id: 6,  name: 'かまくら園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-kamakura.webp' },
+  { id: 7,  name: 'さいたま園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '埼玉県',   img: '/images/garden-saitama.webp' },
   { id: 8,  name: 'ちば園',       typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '千葉県',   img: '/images/no-image.webp' },
-  { id: 9,  name: 'さっぽろ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '北海道',   img: '/images/Rectangle 37.webp' },
-  { id: 10, name: 'むさしの園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/Rectangle 32.webp' },
-  { id: 11, name: 'まちだ園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/Rectangle 33.webp' },
-  { id: 12, name: 'ふじさわ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/Rectangle 34.webp' },
+  { id: 9,  name: 'さっぽろ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '北海道',   img: '/images/garden-sapporo.webp' },
+  { id: 10, name: 'むさしの園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/garden-musashino.webp' },
+  { id: 11, name: 'まちだ園',     typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '東京都',   img: '/images/garden-machida.webp' },
+  { id: 12, name: 'ふじさわ園',   typeCategory: '認定保育所',       type: '認可保育所',         prefecture: '神奈川県', img: '/images/garden-fujisawa.webp' },
   // 小規模保育所 (4件)
-  { id: 13, name: 'なごや園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '愛知県',   img: '/images/jason-sung-xH04gkmk1sg-unsplash.webp' },
-  { id: 14, name: 'おおさか園',   typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '大阪府',   img: '/images/hoylee-song-RcTuIWPwwmo-unsplash.webp' },
-  { id: 15, name: 'こうべ園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '兵庫県',   img: '/images/mi-pham-FtZL0r4DZYk-unsplash.webp' },
-  { id: 16, name: 'きゅうしゅう園', typeCategory: '小規模保育所',   type: '小規模保育所',       prefecture: '福岡県',   img: '/images/massimo-adami-GYdtY0fR4CM-unsplash.webp' },
+  { id: 13, name: 'なごや園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '愛知県',   img: '/images/garden-nagoya.webp' },
+  { id: 14, name: 'おおさか園',   typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '大阪府',   img: '/images/garden-osaka.webp' },
+  { id: 15, name: 'こうべ園',     typeCategory: '小規模保育所',     type: '小規模保育所',       prefecture: '兵庫県',   img: '/images/garden-kobe.webp' },
+  { id: 16, name: 'きゅうしゅう園', typeCategory: '小規模保育所',   type: '小規模保育所',       prefecture: '福岡県',   img: '/images/letter-hiroshima.webp' },
   // 小規模保育事業A型 (3件)
-  { id: 17, name: 'かわさき園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '神奈川県', img: '/images/sports-day-2802266_1920 1.webp' },
-  { id: 18, name: 'なら園',       typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '奈良県',   img: '/images/zoo-monkey-uD7ZRjhgwLo-unsplash.webp' },
-  { id: 19, name: 'おきなわ園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '沖縄県',   img: '/images/ANJU16040317IMG_1087_TP_V1.webp' },
+  { id: 17, name: 'かわさき園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '神奈川県', img: '/images/nenkan-sports-day.webp' },
+  { id: 18, name: 'なら園',       typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '奈良県',   img: '/images/nenkan-excursion.webp' },
+  { id: 19, name: 'おきなわ園',   typeCategory: '小規模保育事業A型', type: '小規模保育事業A型', prefecture: '沖縄県',   img: '/images/fv-children.webp' },
 ]
 
 const prefectures = computed(() => [...new Set(allGardens.map(g => g.prefecture))])

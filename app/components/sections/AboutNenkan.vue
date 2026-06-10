@@ -45,18 +45,18 @@ import { useScrollAnimation } from '~/composables/useScrollAnimation'
 const { elementRef: nenkanRef, isVisible } = useScrollAnimation(0.1)
 
 const months = [
-  { month: '4がつ', label: '進級・入園おめでとうの会',  img: "/images/zhenzhong-liu-kFmaqeOF-PQ-unsplash 1.webp" },
-  { month: '5がつ', label: '親子遠足',                  img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash.webp" },
-  { month: '6がつ', label: '運動会',                    img: "/images/sports-day-2802266_1920 1.webp" },
-  { month: '7がつ', label: 'たなばた会',                img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash-1.webp" },
-  { month: '8がつ', label: '夏のお楽しみ会',            img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash-3.webp" },
-  { month: '9がつ', label: '親子レクリエーション',      img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash-2.webp" },
-  { month: '10がつ', label: 'ハロウィン',               img: "/images/silvana-carlos-PiZdDvRG3M8-unsplash.webp" },
-  { month: '11がつ', label: '秋の収穫体験遠足',         img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash.webp" },
-  { month: '12がつ', label: 'クリスマス会',             img: "/images/zhenzhong-liu-kFmaqeOF-PQ-unsplash 1.webp" },
-  { month: '1がつ', label: '新年お楽しみ会',            img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash-3.webp" },
-  { month: '2がつ', label: 'おゆうぎ会',                img: "/images/zoo-monkey-uD7ZRjhgwLo-unsplash-2.webp" },
-  { month: '3がつ', label: 'ひな祭り会・巣立ちの会',   img: "/images/sports-day-2802266_1920 1.webp" },
+  { month: '4がつ', label: '進級・入園おめでとうの会',  img: "/images/nenkan-entrance-ceremony.webp" },
+  { month: '5がつ', label: '親子遠足',                  img: "/images/nenkan-excursion.webp" },
+  { month: '6がつ', label: '運動会',                    img: "/images/nenkan-sports-day.webp" },
+  { month: '7がつ', label: 'たなばた会',                img: "/images/nenkan-tanabata.webp" },
+  { month: '8がつ', label: '夏のお楽しみ会',            img: "/images/nenkan-summer.webp" },
+  { month: '9がつ', label: '親子レクリエーション',      img: "/images/nenkan-recreation.webp" },
+  { month: '10がつ', label: 'ハロウィン',               img: "/images/nenkan-halloween.webp" },
+  { month: '11がつ', label: '秋の収穫体験遠足',         img: "/images/nenkan-excursion.webp" },
+  { month: '12がつ', label: 'クリスマス会',             img: "/images/nenkan-entrance-ceremony.webp" },
+  { month: '1がつ', label: '新年お楽しみ会',            img: "/images/nenkan-summer.webp" },
+  { month: '2がつ', label: 'おゆうぎ会',                img: "/images/nenkan-recreation.webp" },
+  { month: '3がつ', label: 'ひな祭り会・巣立ちの会',   img: "/images/nenkan-sports-day.webp" },
 ]
 </script>
 

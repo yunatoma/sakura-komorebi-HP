@@ -30,7 +30,7 @@
       <!-- アイコン（上ボーダーにまたがる） -->
       <div class="sitemap-page__logo-wrap">
         <div class="sitemap-page__logo-circle">
-          <img src="/images/Mask group.svg" alt="" class="sitemap-page__logo-img" />
+          <img src="/images/icon-logo-mark.svg" alt="" class="sitemap-page__logo-img" />
         </div>
       </div>
 

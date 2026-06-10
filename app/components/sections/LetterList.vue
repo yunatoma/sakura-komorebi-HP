@@ -109,18 +109,18 @@ import { useScrollAnimation } from '~/composables/useScrollAnimation'
 const { elementRef: listRef, isVisible } = useScrollAnimation(0.1)
 
 const allPosts = [
-  { id: 1,  image: '/images/erik-o990dFLgo1Q-unsplash.webp',              garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '年長さんクラス、美ら海水族館に遠足に行きました！', date: '2024ねん4がつ15にち',  pref: '沖縄県',  year: 2024, month: 4 },
-  { id: 2,  image: '/images/massimo-adami-GYdtY0fR4CM-unsplash.webp',     garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: '年少さん、ピクニックへ♪',                         date: '2024ねん4がつ6にち',   pref: '広島県',  year: 2024, month: 4 },
-  { id: 3,  image: '/images/erika-fletcher-YfNWGrQI3a4-unsplash.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '年少さんクラス、お絵描き会',                       date: '2024ねん2がつ10にち',  pref: '東京都',  year: 2024, month: 2 },
-  { id: 4,  image: '/images/jason-sung-xH04gkmk1sg-unsplash.webp',        garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: 'しぶや園の日常',                                   date: '2024ねん1がつ21にち',  pref: '東京都',  year: 2024, month: 1 },
-  { id: 5,  image: '/images/jerry-wang-KV9F7Ypl2N0-unsplash.webp',        garden: 'おおさか園',   title: 'おおさか園からのおたより',     excerpt: 'ローマ字のお勉強',                                 date: '2023ねん12がつ10にち', pref: '大阪府',  year: 2023, month: 12 },
-  { id: 6,  image: '/images/jerry-wang-Lxn5XUu_mZ8-unsplash.webp',        garden: 'よこはま園',   title: 'よこはま園からのおたより',     excerpt: '年長さんクラス、科学博物館に遠足！',               date: '2023ねん11がつ9にち',  pref: '神奈川県', year: 2023, month: 11 },
-  { id: 7,  image: '/images/gautam-arora-K8yhW1BWWpk-unsplash.webp',      garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '秋の収穫体験、さつまいも掘りに行きました',         date: '2023ねん10がつ20にち', pref: '沖縄県',  year: 2023, month: 10 },
-  { id: 8,  image: '/images/jackie-park-3SBfM2-ytb8-unsplash 1.webp',     garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '運動会、みんな頑張りました！',                     date: '2023ねん9がつ30にち',  pref: '東京都',  year: 2023, month: 9 },
-  { id: 9,  image: '/images/mi-pham-FtZL0r4DZYk-unsplash.webp',           garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: 'たなばた会、笹に願いを込めて',                     date: '2023ねん7がつ7にち',   pref: '広島県',  year: 2023, month: 7 },
-  { id: 10, image: '/images/hoylee-song-RcTuIWPwwmo-unsplash.webp',       garden: 'きゅうしゅう園', title: 'きゅうしゅう園からのおたより', excerpt: '春の遠足、公園で楽しく遊びました',               date: '2023ねん5がつ18にち',  pref: '福岡県',  year: 2023, month: 5 },
-  { id: 11, image: '/images/silvana-carlos-PiZdDvRG3M8-unsplash.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '絵の具あそび、みんな楽しんでいます',               date: '2023ねん4がつ5にち',   pref: '東京都',  year: 2023, month: 4 },
-  { id: 12, image: '/images/zhenzhong-liu-kFmaqeOF-PQ-unsplash 1.webp',   garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: '新年度スタート！入園式の様子',                     date: '2023ねん4がつ1にち',   pref: '東京都',  year: 2023, month: 4 },
+  { id: 1,  image: '/images/letter-naha.webp',              garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '年長さんクラス、美ら海水族館に遠足に行きました！', date: '2024ねん4がつ15にち',  pref: '沖縄県',  year: 2024, month: 4 },
+  { id: 2,  image: '/images/letter-hiroshima.webp',     garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: '年少さん、ピクニックへ♪',                         date: '2024ねん4がつ6にち',   pref: '広島県',  year: 2024, month: 4 },
+  { id: 3,  image: '/images/letter-shinjuku-drawing.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '年少さんクラス、お絵描き会',                       date: '2024ねん2がつ10にち',  pref: '東京都',  year: 2024, month: 2 },
+  { id: 4,  image: '/images/garden-nagoya.webp',        garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: 'しぶや園の日常',                                   date: '2024ねん1がつ21にち',  pref: '東京都',  year: 2024, month: 1 },
+  { id: 5,  image: '/images/letter-osaka.webp',        garden: 'おおさか園',   title: 'おおさか園からのおたより',     excerpt: 'ローマ字のお勉強',                                 date: '2023ねん12がつ10にち', pref: '大阪府',  year: 2023, month: 12 },
+  { id: 6,  image: '/images/garden-sagamihara.webp',        garden: 'よこはま園',   title: 'よこはま園からのおたより',     excerpt: '年長さんクラス、科学博物館に遠足！',               date: '2023ねん11がつ9にち',  pref: '神奈川県', year: 2023, month: 11 },
+  { id: 7,  image: '/images/garden-yokohama.webp',      garden: 'なは園',       title: 'なは園からのおたより',         excerpt: '秋の収穫体験、さつまいも掘りに行きました',         date: '2023ねん10がつ20にち', pref: '沖縄県',  year: 2023, month: 10 },
+  { id: 8,  image: '/images/letter-shinjuku-sports.webp',     garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '運動会、みんな頑張りました！',                     date: '2023ねん9がつ30にち',  pref: '東京都',  year: 2023, month: 9 },
+  { id: 9,  image: '/images/garden-kobe.webp',           garden: 'ひろしま園',   title: 'ひろしま園からのおたより',     excerpt: 'たなばた会、笹に願いを込めて',                     date: '2023ねん7がつ7にち',   pref: '広島県',  year: 2023, month: 7 },
+  { id: 10, image: '/images/garden-osaka.webp',       garden: 'きゅうしゅう園', title: 'きゅうしゅう園からのおたより', excerpt: '春の遠足、公園で楽しく遊びました',               date: '2023ねん5がつ18にち',  pref: '福岡県',  year: 2023, month: 5 },
+  { id: 11, image: '/images/nenkan-halloween.webp',    garden: 'しんじゅく園', title: 'しんじゅく園からのおたより',   excerpt: '絵の具あそび、みんな楽しんでいます',               date: '2023ねん4がつ5にち',   pref: '東京都',  year: 2023, month: 4 },
+  { id: 12, image: '/images/nenkan-entrance-ceremony.webp',   garden: 'しぶや園',     title: 'しぶや園からのおたより',       excerpt: '新年度スタート！入園式の様子',                     date: '2023ねん4がつ1にち',   pref: '東京都',  year: 2023, month: 4 },
 ]
 
 const prefectures = computed(() => [...new Set(allPosts.map(p => p.pref))])

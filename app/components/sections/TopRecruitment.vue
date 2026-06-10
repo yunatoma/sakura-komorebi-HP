@@ -5,7 +5,7 @@
         <!-- Logo -->
         <div class="recruitment__logo" :class="{ 'is-visible': isVisible }">
           <div class="recruitment__logo-circle">
-            <img src="/images/Mask group-8.svg" alt="" class="recruitment__logo-img" />
+            <img src="/images/nav-icon-recruit.svg" alt="" class="recruitment__logo-img" />
           </div>
         </div>
 
@@ -58,7 +58,7 @@ const { elementRef: recruitmentRef, isVisible } = useScrollAnimation(0.1)
   min-height: 600px;
   display: flex;
   align-items: center;
-  background: url('/images/Rectangle 19.webp') center center / cover no-repeat;
+  background: url('/images/garden-kamakura.webp') center center / cover no-repeat;
 
   @include sp {
     min-height: 480px;
