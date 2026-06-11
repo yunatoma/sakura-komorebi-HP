@@ -71,7 +71,7 @@ function formatDate(date: string) {
 
   @include sp {
     padding: 16px 20px 60px;
-    margin-top: -40px;
+    margin-top: calc(-100vw * 40 / 375);
   }
 
   &__inner {
@@ -129,11 +129,16 @@ function formatDate(date: string) {
     padding: 48px 40px;
 
     @include sp {
-      width: 58%;
+      width: 55%;
       left: 2%;
-      top: 50%;
+      top: 35%;
       transform: translateY(-50%);
       padding: 24px 20px;
+    }
+
+    @media screen and (min-width: 500px) and (max-width: 767px) {
+      width: 55%;
+      top: 40%;
     }
 
     @media screen and (max-width: 500px) {
@@ -151,17 +156,29 @@ function formatDate(date: string) {
     text-align: left;
     vertical-align: bottom;
 
+    @media screen and (max-width: 1200px) {
+      font-size: 34px;
+    }
+
     @media screen and (max-width: 1100px) {
-      font-size: 32px;
+      font-size: 26px;
     }
 
     @media screen and (max-width: 900px) {
       font-size: 24px;
     }
 
+    @media screen and (max-width: 820px) {
+      font-size: 20px;
+    }
+
     @include sp {
-      font-size: 22px;
+      font-size: clamp(14px, 4vw, 28px);
       text-align: center;
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: clamp(14px, 4.5vw, 20px);
     }
   }
 
@@ -203,6 +220,10 @@ function formatDate(date: string) {
       left: 0;
       padding: 16px 18px;
     }
+
+    @media screen and (max-width: 380px) {
+      padding: 12px 14px;
+    }
   }
 
   &__news-heading {
@@ -214,6 +235,10 @@ function formatDate(date: string) {
     vertical-align: bottom;
     color: $color-dark-red;
     margin-bottom: 6px;
+
+    @media screen and (max-width: 380px) {
+      font-size: 16px;
+    }
   }
 
   &__news-body {
@@ -222,6 +247,10 @@ function formatDate(date: string) {
     color: $color-text;
     line-height: 1.6;
     margin-bottom: 6px;
+
+    @media screen and (max-width: 380px) {
+      font-size: 11px;
+    }
   }
 
   &__news-date {
@@ -229,6 +258,10 @@ function formatDate(date: string) {
     font-size: 12px;
     color: $color-text;
     text-align: right;
+
+    @media screen and (max-width: 380px) {
+      font-size: 10px;
+    }
   }
 }
 

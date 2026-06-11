@@ -52,6 +52,7 @@
         </button>
       </div>
 
+      <Teleport to="body">
       <div v-if="menuOpen" class="header__sp-menu">
         <button class="header__sp-menu-close" aria-label="メニューを閉じる" @click="menuOpen = false">
           <svg class="header__sp-menu-close-icon" aria-hidden="true" viewBox="0 0 44 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,6 +75,7 @@
           </NuxtLink>
         </div>
       </div>
+      </Teleport>
     </div>
   </header>
 </template>
@@ -378,7 +380,7 @@ const rightNavItems = [
 
     img {
       display: block;
-      width: 230px;
+      width: min(calc(100vw - 160px), 280px);
       height: auto;
     }
   }
@@ -399,6 +401,12 @@ const rightNavItems = [
     padding: 0;
     cursor: pointer;
     flex-shrink: 0;
+
+    @media screen and (max-width: 380px) {
+      width: 48px;
+      height: 48px;
+      right: 12px;
+    }
   }
 
   &__sp-toggle-lines {
@@ -412,6 +420,14 @@ const rightNavItems = [
       height: 2px;
       background-color: $color-dark-red;
       border-radius: 2px;
+
+      @media screen and (max-width: 380px) {
+        width: 22px;
+      }
+    }
+
+    @media screen and (max-width: 380px) {
+      gap: 4px;
     }
   }
 
@@ -456,12 +472,16 @@ const rightNavItems = [
     color: $color-dark-red;
     line-height: 1;
     letter-spacing: 0.05em;
+
+    @media screen and (max-width: 380px) {
+      font-size: 10px;
+    }
   }
 
   &__sp-menu {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    z-index: 300;
     background-color: rgba(255, 248, 242, 0.92);
     backdrop-filter: blur(6px);
     overflow-y: auto;
