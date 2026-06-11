@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="garden in sortedGardens" :key="garden.id">
+        <tr v-for="garden in pagedGardens" :key="garden.id">
           <td>{{ garden.name }}</td>
           <td>{{ garden.typeCategory }}</td>
           <td>{{ garden.prefecture }}</td>
@@ -32,6 +32,20 @@
         </tr>
       </tbody>
     </table>
+    </div>
+
+    <div v-if="totalPages > 1" class="admin-list__pagination">
+      <span class="admin-list__pagination-info">全{{ gardens.length }}件中 {{ (currentPage - 1) * perPage + 1 }}〜{{ Math.min(currentPage * perPage, gardens.length) }}件</span>
+      <div class="admin-list__pagination-btns">
+        <button class="admin-list__page-btn" :disabled="currentPage === 1" @click="currentPage--">‹</button>
+        <button
+          v-for="p in totalPages" :key="p"
+          class="admin-list__page-btn"
+          :class="{ 'is-active': currentPage === p }"
+          @click="currentPage = p"
+        >{{ p }}</button>
+        <button class="admin-list__page-btn" :disabled="currentPage === totalPages" @click="currentPage++">›</button>
+      </div>
     </div>
   </div>
 </template>
@@ -72,6 +86,16 @@ const sortedGardens = computed(() => {
     return sortDir.value === 'asc' ? cmp : -cmp
   })
 })
+
+const perPage = 20
+const currentPage = ref(1)
+const totalPages = computed(() => Math.ceil(sortedGardens.value.length / perPage))
+const pagedGardens = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return sortedGardens.value.slice(start, start + perPage)
+})
+
+watch(sortedGardens, () => { currentPage.value = 1 })
 
 const load = async () => {
   loading.value = true

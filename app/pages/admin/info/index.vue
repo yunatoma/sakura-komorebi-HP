@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="post in sortedPosts" :key="post.id">
+        <tr v-for="post in pagedPosts" :key="post.id">
           <td>{{ post.date }}</td>
           <td>{{ post.title }}</td>
           <td>{{ categoryLabel(post.category) }}</td>
@@ -32,6 +32,20 @@
         </tr>
       </tbody>
     </table>
+    </div>
+
+    <div v-if="totalPages > 1" class="admin-list__pagination">
+      <span class="admin-list__pagination-info">全{{ posts.length }}件中 {{ (currentPage - 1) * perPage + 1 }}〜{{ Math.min(currentPage * perPage, posts.length) }}件</span>
+      <div class="admin-list__pagination-btns">
+        <button class="admin-list__page-btn" :disabled="currentPage === 1" @click="currentPage--">‹</button>
+        <button
+          v-for="p in totalPages" :key="p"
+          class="admin-list__page-btn"
+          :class="{ 'is-active': currentPage === p }"
+          @click="currentPage = p"
+        >{{ p }}</button>
+        <button class="admin-list__page-btn" :disabled="currentPage === totalPages" @click="currentPage++">›</button>
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +91,16 @@ const sortedPosts = computed(() => {
     return sortDir.value === 'asc' ? cmp : -cmp
   })
 })
+
+const perPage = 20
+const currentPage = ref(1)
+const totalPages = computed(() => Math.ceil(sortedPosts.value.length / perPage))
+const pagedPosts = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return sortedPosts.value.slice(start, start + perPage)
+})
+
+watch(sortedPosts, () => { currentPage.value = 1 })
 
 const load = async () => {
   loading.value = true
