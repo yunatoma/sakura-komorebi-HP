@@ -104,7 +104,7 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const route = useRoute()
-const { getOne, getAll, update } = useFirestore()
+const { getOne, getAll, update, invalidateCache } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const garden = ref<any>(null)
 const allNames = ref<string[]>([])
@@ -140,6 +140,7 @@ const handleSubmit = async (formData: any, files: Record<string, File | null>, g
     }
 
     await update('gardens', id, formData)
+    invalidateCache('gardens')
     await navigateTo('/admin/introduction')
   } finally {
     saving.value = false

@@ -93,7 +93,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
-const { create, getAll } = useFirestore()
+const { create, getAll, invalidateCache } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const loading = ref(false)
 const formRef = ref<any>(null)
@@ -123,6 +123,7 @@ const handleSubmit = async (formData: any, files: Record<string, File | null>, g
     }
 
     await create('gardens', formData)
+    invalidateCache('gardens')
     await navigateTo('/admin/introduction')
   } finally {
     loading.value = false

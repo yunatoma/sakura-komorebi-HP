@@ -39,7 +39,7 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const route = useRoute()
-const { getOne, update, getAll } = useFirestore()
+const { getOne, update, getAll, invalidateCache } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const post = ref<any>(null)
 const loading = ref(true)
@@ -63,6 +63,7 @@ const handleSubmit = async (formData: any, imageFile: File | null) => {
       imageUrl = await uploadImage(imageFile, `letter/${id}/image`)
     }
     await update('letterPosts', id, { ...formData, imageUrl })
+    invalidateCache('letterPosts')
     await navigateTo('/admin/letter')
   } finally {
     saving.value = false

@@ -32,7 +32,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
-const { create, getAll } = useFirestore()
+const { create, getAll, invalidateCache } = useFirestore()
 const { uploadImage } = useStorageUpload()
 const loading = ref(false)
 const formRef = ref<any>(null)
@@ -50,6 +50,7 @@ const handleSubmit = async (formData: any, imageFile: File | null) => {
       imageUrl = await uploadImage(imageFile, `info/${id}/image`)
     }
     await create('infoPosts', { ...formData, imageUrl })
+    invalidateCache('infoPosts')
     await navigateTo('/admin/info')
   } finally {
     loading.value = false

@@ -37,7 +37,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
-const { getAll, remove } = useFirestore()
+const { getAll, remove, invalidateCache } = useFirestore()
 const posts = ref<any[]>([])
 const loading = ref(true)
 const sortKey = ref('date')
@@ -85,6 +85,7 @@ const load = async () => {
 const handleDelete = async (id: string) => {
   if (!confirm('本当に削除しますか？')) return
   await remove('infoPosts', id)
+  invalidateCache('infoPosts')
   await load()
 }
 
