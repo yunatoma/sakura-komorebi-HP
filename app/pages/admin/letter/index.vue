@@ -7,7 +7,8 @@
 
     <div v-if="loading" class="admin-list__loading">読み込み中...</div>
 
-    <table v-else class="admin-list__table">
+    <div v-else class="admin-list__table-wrap">
+    <table class="admin-list__table">
       <thead>
         <tr>
           <th class="sortable" @click="toggleSort('date')">日付<span class="sort-icon" :class="sortIconClass('date')">{{ sortIconChar('date') }}</span></th>
@@ -31,6 +32,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
