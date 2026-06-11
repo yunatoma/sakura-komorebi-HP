@@ -29,6 +29,10 @@
 
     <SectionsInfoSingle v-if="post" :post="post" />
 
+    <div v-else-if="loading" class="info-detail__loading">
+      <span class="info-detail__spinner" aria-label="読み込み中"></span>
+    </div>
+
     <div v-else class="info-detail__not-found">
       <p>記事が見つかりませんでした。</p>
       <NuxtLink to="/info">一覧に戻る</NuxtLink>
@@ -44,15 +48,21 @@ const { fetchById } = useInfoPosts()
 
 const id = route.params.id as string
 const post = ref<InfoPost | null>(null)
+const loading = ref(true)
 
 onMounted(async () => {
   post.value = await fetchById(id)
+  loading.value = false
 })
 </script>
 
 <style scoped lang="scss">
 @use '~/assets/styles/variables' as *;
 @use '~/assets/styles/mixin' as *;
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 .page-heading {
   &__bg {
@@ -161,6 +171,23 @@ onMounted(async () => {
 }
 
 .info-detail {
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  &__spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(#EF8F9C, 0.3);
+    border-top-color: #EF8F9C;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   &__not-found {
     max-width: 1160px;
     margin: 0 auto;

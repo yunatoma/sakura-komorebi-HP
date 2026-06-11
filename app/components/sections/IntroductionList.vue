@@ -13,6 +13,12 @@
     </div>
 
     <div class="intro-list__inner">
+      <!-- ローディング -->
+      <div v-if="loading" class="intro-list__loading">
+        <span class="intro-list__spinner" aria-label="読み込み中"></span>
+      </div>
+
+      <template v-else>
       <!-- Tabs -->
       <div class="intro-list__tabs" :class="{ 'is-visible': isVisible }">
         <button
@@ -95,6 +101,7 @@
           >›</button>
         </nav>
       </div>
+      </template>
     </div>
   </section>
 </template>
@@ -115,6 +122,7 @@ const { fetchAll } = useGardens()
 const allGardens = ref<Garden[]>([])
 const activeType = ref('')
 const activePref = ref('')
+const loading = ref(true)
 
 onMounted(async () => {
   allGardens.value = await fetchAll()
@@ -125,6 +133,7 @@ onMounted(async () => {
     activePref.value = prefQuery
     emit('tab-change', '都道府県から探す')
   }
+  loading.value = false
 })
 
 const gardenTypes = computed(() => [...new Set(allGardens.value.map(g => g.type).filter(Boolean))])
@@ -169,7 +178,28 @@ function setTab(tab: 'type' | 'pref') {
   }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .intro-list {
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  &__spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba($color-pink, 0.3);
+    border-top-color: $color-pink;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   position: relative;
   padding: 80px 60px 100px;
   margin-top: 130px;

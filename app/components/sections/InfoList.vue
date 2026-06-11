@@ -5,6 +5,12 @@
     <div class="info-list__deco info-list__deco--blob-bottom" aria-hidden="true"></div>
 
     <div class="info-list__inner">
+      <!-- ローディング -->
+      <div v-if="loading" class="info-list__loading">
+        <span class="info-list__spinner" aria-label="読み込み中"></span>
+      </div>
+
+      <template v-else>
       <!-- フィルタータブ -->
       <div class="info-list__tabs" role="tablist" aria-label="カテゴリフィルター">
         <button
@@ -94,6 +100,7 @@
           <span aria-hidden="true">›</span>
         </button>
       </nav>
+      </template>
     </div>
   </section>
 </template>
@@ -114,9 +121,11 @@ function setTab(key: string) {
 
 const { fetchAll } = useInfoPosts()
 const allItems = ref<InfoPost[]>([])
+const loading = ref(true)
 
 onMounted(async () => {
   allItems.value = await fetchAll()
+  loading.value = false
 })
 
 function getCategoryLabel(value: string) {
@@ -172,12 +181,33 @@ function categoryLabel(category: string) {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 // カテゴリーカラー
 $color-news: #EF8F9C;
 $color-activity: #7FC8E8;
 $color-media: #F5C842;
 
 .info-list {
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  &__spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba($color-pink, 0.3);
+    border-top-color: $color-pink;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   position: relative;
   padding: 48px 0 80px;
   overflow: hidden;

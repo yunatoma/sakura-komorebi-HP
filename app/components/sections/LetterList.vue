@@ -1,6 +1,12 @@
 <template>
   <section class="letter-list" ref="listRef">
     <div class="letter-list__inner">
+      <!-- ローディング -->
+      <div v-if="loading" class="letter-list__loading">
+        <span class="letter-list__spinner" aria-label="読み込み中"></span>
+      </div>
+
+      <template v-else>
       <!-- Search -->
       <div class="letter-list__search" :class="{ 'is-visible': isVisible }">
         <div class="letter-list__search-header">
@@ -99,6 +105,7 @@
           </div>
         </aside>
       </div>
+      </template>
     </div>
   </section>
 </template>
@@ -111,9 +118,11 @@ const { elementRef: listRef, isVisible } = useScrollAnimation(0.1)
 
 const { fetchAll } = useLetterPosts()
 const allPosts = ref<LetterPost[]>([])
+const loading = ref(true)
 
 onMounted(async () => {
   allPosts.value = await fetchAll()
+  loading.value = false
 })
 
 function parseDateParts(dateStr: string) {
@@ -201,7 +210,28 @@ const archive = computed(() => {
   }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .letter-list {
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  &__spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba($color-pink, 0.3);
+    border-top-color: $color-pink;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   padding: 40px 60px 100px;
 
   @include sp {
