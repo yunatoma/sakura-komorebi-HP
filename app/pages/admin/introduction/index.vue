@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th class="sortable" @click="toggleSort('name')">園名<span class="sort-icon" :class="sortIconClass('name')">{{ sortIconChar('name') }}</span></th>
-          <th class="sortable" @click="toggleSort('typeCategory')">種別<span class="sort-icon" :class="sortIconClass('typeCategory')">{{ sortIconChar('typeCategory') }}</span></th>
+          <th class="sortable" @click="toggleSort('type')">種別<span class="sort-icon" :class="sortIconClass('type')">{{ sortIconChar('type') }}</span></th>
           <th class="sortable" @click="toggleSort('prefecture')">都道府県<span class="sort-icon" :class="sortIconClass('prefecture')">{{ sortIconChar('prefecture') }}</span></th>
           <th>操作</th>
         </tr>
@@ -20,7 +20,7 @@
       <tbody>
         <tr v-for="garden in pagedGardens" :key="garden.id">
           <td>{{ garden.name }}</td>
-          <td>{{ garden.typeCategory }}</td>
+          <td>{{ garden.type }}</td>
           <td>{{ garden.prefecture }}</td>
           <td class="admin-list__actions">
             <NuxtLink :to="`/admin/introduction/${garden.id}`" class="admin-list__edit-btn">編集</NuxtLink>
