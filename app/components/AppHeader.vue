@@ -488,7 +488,7 @@ const rightNavItems = [
     padding: 108px 24px 40px;
 
     @include sp {
-      padding-top: calc(100vw * 158 / 375 + 24px);
+      padding-top: 100px;
     }
   }
 

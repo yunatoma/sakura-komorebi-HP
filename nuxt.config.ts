@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'robots', content: 'noindex, nofollow' },
+        { property: 'og:image', content: 'https://sakura-komorebi-hp.vercel.app/images/ogp-image.png' },
       ],
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

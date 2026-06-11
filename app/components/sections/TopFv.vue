@@ -87,7 +87,7 @@ function formatDate(date: string) {
     overflow: hidden;
     height: 540px;
     width: 100%;
-    animation: fadeInUp 1.2s ease 0.1s both;
+    animation: fadeInUp 0.8s ease 0.1s both;
 
     @include sp {
       height: 460px;
@@ -186,8 +186,8 @@ function formatDate(date: string) {
     display: block;
     animation: fadeInUp 0.7s ease both;
 
-    &--1 { animation-delay: 0.2s; }
-    &--2 { animation-delay: 0.5s; }
+    &--1 { animation-delay: 0.15s; }
+    &--2 { animation-delay: 0.3s; }
   }
 
   // ---- お知らせ (画像下端からはみ出し) ----
@@ -205,7 +205,7 @@ function formatDate(date: string) {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     text-decoration: none;
     display: block;
-    animation: fadeInUp 0.7s ease 0.8s both;
+    animation: fadeInUp 0.4s ease 0.1s both;
 
     &:hover {
       opacity: 0.85;
@@ -251,6 +251,7 @@ function formatDate(date: string) {
     @media screen and (max-width: 380px) {
       font-size: 11px;
     }
+
   }
 
   &__news-date {
